@@ -1,0 +1,12 @@
+theme: simplonline-ressources-jekyll-theme
+
+title: Simplonline Ressources
+description: Thème Jekyll pour les ressources pédagogiques Simplonline
+lang: fr
+show_toc: true
+
+readme_index:
+  with_frontmatter: true
+
+plugins:
+  - jekyll-readme-index

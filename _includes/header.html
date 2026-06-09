@@ -1,0 +1,11 @@
+<header class="site-header">
+  <div class="wrapper">
+    <div>
+      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title | default: site.github.repository_name }}</a>
+      {% if site.type %}
+        <span class="site-type">{{ site.type }}</span>
+      {% endif %}
+    </div>
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">&#9790;</button>
+  </div>
+</header>

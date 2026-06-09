@@ -1,0 +1,6 @@
+remote_theme: simplonco/simplonline-ressources-jekyll-theme
+
+title: Mon cours
+description: Ressources pour le module JavaScript
+lang: fr
+show_toc: true
