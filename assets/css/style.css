@@ -312,6 +312,17 @@ html.dark-mode {
   .site-footer a:hover {
     color: var(--color-gray);
   }
+
+  .footer-simplon-logo {
+    height: 1.2em;
+    width: auto;
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  html.dark-mode .footer-simplon-logo {
+    filter: brightness(0) invert(1);
+  }
 }
 
 @layer components {
