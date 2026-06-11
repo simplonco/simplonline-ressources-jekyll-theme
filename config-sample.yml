@@ -3,4 +3,19 @@ remote_theme: simplonco/simplonline-ressources-jekyll-theme
 title: Mon cours
 description: Ressources pour le module JavaScript
 lang: fr
-show_toc: true
+
+# Options de contenu
+show_toc: true                     # Affiche la table des matières sur chaque page
+
+# Traitement Markdown
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge        # Colorisation syntaxique des blocs de code
+  auto_ids: true                   # Génère des ancres sur les titres
+
+# Front Matter des pages
+# Chaque page peut définir dans son en-tête YAML :
+#   title: Titre de la page
+#   description: Description pour le SEO et l'affichage
+#   show_toc: true/false           # Table des matières (par défaut: false)
+#   parent: Nom de la page parente # Pour le fil d'Ariane et le lien retour

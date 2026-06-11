@@ -9,8 +9,14 @@
 
   {% include header.html %}
 
+  {% include breadcrumbs.html %}
+
   <main id="main-content" class="site-content">
     <div class="wrapper">
+      {% if page.show_toc %}
+        {% include toc.html %}
+      {% endif %}
+      {% include parent-link.html %}
       {{ content }}
     </div>
   </main>

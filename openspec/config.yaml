@@ -2,12 +2,18 @@ schema: spec-driven
 
 # Project context (optional)
 # This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Domain: Thème Jekyll pour formateurs Wild Code School
+
+  But du thème : permettre aux formateurs de créer facilement des ressources pédagogiques (exercices, fiches, agrégation de contenus, explications) pour les apprenants Simplonline.
+
+  Workflow utilisateur :
+  1. Le formateur crée un nouveau dépôt GitHub
+  2. Il rédige ses contenus pédagogiques dans README.md (ou pages Markdown)
+  3. Il déploie via GitHub Pages en référençant ce thème Jekyll comme remote_theme
+  4. Le thème s'occupe du rendu HTML/CSS/JS — le formateur ne touche qu'au Markdown
+
+  Tech stack : Jekyll, CSS natif (pas de Sass), JavaScript vanilla, GitHub Pages
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
