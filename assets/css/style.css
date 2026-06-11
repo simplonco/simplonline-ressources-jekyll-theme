@@ -253,6 +253,49 @@ html.dark-mode {
     min-height: 70vh;
   }
 
+  .content-layout {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .content-main {
+    min-width: 0;
+  }
+
+  @media (min-width: 1200px) {
+    .content-layout {
+      max-width: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr minmax(auto, 930px) 1fr;
+    }
+
+    .content-main {
+      grid-column: 2;
+      padding: 0 var(--spacing-md);
+    }
+
+    .toc-sidebar {
+      grid-column: 1;
+      grid-row: 1;
+      position: sticky;
+      top: var(--spacing-lg);
+      justify-self: end;
+      width: 220px;
+      padding-right: var(--spacing-xl);
+      max-height: calc(100vh - 2 * var(--spacing-lg));
+      overflow-y: auto;
+    }
+
+    .toc-sidebar .toc {
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
   .site-footer {
     background: var(--color-footer-bg);
     color: var(--color-footer-text);
