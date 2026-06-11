@@ -1,0 +1,7 @@
+{% if page.parent %}
+  {% assign parent_pages = site.pages | where: "title", page.parent %}
+  {% if parent_pages.size > 0 %}
+    {% assign parent_page = parent_pages | first %}
+    <a href="{{ parent_page.url | relative_url }}" class="parent-link">&larr; Retour à {{ page.parent }}</a>
+  {% endif %}
+{% endif %}

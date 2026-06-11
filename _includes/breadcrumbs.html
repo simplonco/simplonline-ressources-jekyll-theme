@@ -1,0 +1,37 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="wrapper">
+    <ol class="breadcrumbs-list">
+      <li><a href="{{ '/' | relative_url }}">Accueil</a></li>
+      {% comment %}Build parent chain bottom-up{% endcomment %}
+      {% assign chain = "" %}
+      {% assign current = page %}
+      {% for i in (1..10) %}
+        {% if current.parent %}
+          {% assign parent_pages = site.pages | where: "title", current.parent %}
+          {% if parent_pages.size > 0 %}
+            {% assign parent = parent_pages | first %}
+            {% unless parent.url == '/' %}
+              {% capture entry %}{{ parent.url }}||{{ current.parent }}{% endcapture %}
+              {% if chain != "" %}
+                {% assign chain = entry | append: "@@" | append: chain %}
+              {% else %}
+                {% assign chain = entry %}
+              {% endif %}
+              {% assign current = parent %}
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if chain != "" %}
+        {% assign items = chain | split: "@@" %}
+        {% for item in items %}
+          {% assign parts = item | split: "||" %}
+          <li><a href="{{ parts[0] | relative_url }}">{{ parts[1] }}</a></li>
+        {% endfor %}
+      {% endif %}
+      {% unless page.url == '/' %}
+        <li aria-current="page">{{ page.title | default: site.title }}</li>
+      {% endunless %}
+    </ol>
+  </div>
+</nav>
