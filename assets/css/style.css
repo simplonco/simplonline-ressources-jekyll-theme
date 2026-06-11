@@ -282,8 +282,8 @@ html.dark-mode {
       position: sticky;
       top: var(--spacing-lg);
       justify-self: end;
-      width: 220px;
-      padding-right: var(--spacing-xl);
+      width: 300px;
+      padding-inline: var(--spacing-md);
       max-height: calc(100vh - 2 * var(--spacing-lg));
       overflow-y: auto;
     }
