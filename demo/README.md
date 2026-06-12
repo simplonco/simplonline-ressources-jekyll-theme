@@ -99,6 +99,12 @@ Regardez cette introduction aux bases de JavaScript :
 [![Introduction à JavaScript](https://img.youtube.com/vi/jNQXAC9IVRw/0.jpg)](https://www.youtube.com/watch?v=jNQXAC9IVRw)
 
 
+## JS Playground
+
+Pour expérimenter avec le code JavaScript, utilisez ce playground en ligne :
+[JS Playground →](js-playground)
+
+
 ## Exercices
 
 Pour pratiquer, rendez-vous sur la page des exercices :

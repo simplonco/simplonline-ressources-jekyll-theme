@@ -16,3 +16,4 @@ Créer une page HTML simple avec un titre, un paragraphe et une image.
 Écrire une fonction qui prend une liste et retourne la somme des éléments pairs.
 
 [Voir l'exercice →](./python-loops)
+

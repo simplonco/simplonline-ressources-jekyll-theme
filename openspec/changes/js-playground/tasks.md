@@ -22,7 +22,14 @@
 - [x] 4.1 Load `playground.css` and `playground.js` from `_includes/head.html`
 - [x] 4.2 Create demo page `demo/js-playground.md` with working example and documentation
 
-## 5. Improvements (pending)
+## 5. Syntax highlighting (CodeMirror)
+
+- [x] 5.1 Add CodeMirror 5 CDN scripts and CSS to `_includes/head.html`
+- [x] 5.2 Rewrite `playground.js` to create CodeMirror instances from textareas
+- [x] 5.3 Show/hide CodeMirror wrappers on tab switch, refresh on show
+- [x] 5.4 Add syntax colors (light + dark theme) via CodeMirror CSS overrides
+
+## 6. Improvements (pending)
 
 - [ ] 5.1 Generate unique `id` automatically if not provided
 - [ ] 5.2 Add collapsed "View result" toggle on mobile to save vertical space
