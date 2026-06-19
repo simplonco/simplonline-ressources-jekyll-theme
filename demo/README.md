@@ -101,7 +101,7 @@ Regardez cette introduction aux bases de JavaScript :
 
 ## JS Playground
 
-Pour expérimenter avec le code JavaScript, utilisez ce playground en ligne :
+Pour expérimenter avec du code HTML, CSS ou JavaScript, utilisez ce playground en ligne :
 [JS Playground →](js-playground)
 
 

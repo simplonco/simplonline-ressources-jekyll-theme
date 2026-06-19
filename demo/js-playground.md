@@ -4,6 +4,10 @@ description: Testez et éditez du code HTML/CSS/JS en direct
 show_toc: true
 ---
 
+## Présentation
+
+Ce playground vous permet d'expérimenter avec du code HTML, CSS et JavaScript en temps réel. Modifiez le code dans les éditeurs et voyez les résultats instantanément dans la prévisualisation.
+
 {% capture demo1_html %}
 <h1>Hello Wild Code School</h1>
 <p>Modifie ce texte pour voir le rendu en direct !</p>
@@ -62,13 +66,25 @@ Ajoute un playground dans n'importe quelle page Markdown :
 &lt;h1&gt;Hello&lt;/h1&gt;
 &#123;% endcapture %}
 
+&#123;% capture mon_css %}
+h1 {
+  color: red;
+}
+&#123;% endcapture %}
+
+&#123;% capture mon_js %}
+console.log('Hello, World!');
+&#123;% endcapture %}
+
 &#123;% include playground.html
   id="mon-playground"
   initial_html=mon_html
-  initial_css="h1 { color: red; }"
-  initial_js="console.log('ok')"
+  initial_css=mon_css
+  initial_js=mon_js
 %}
-</code></pre>### Paramètres
+</code></pre>
+
+### Paramètres
 
 | Paramètre | Description |
 |-----------|-------------|

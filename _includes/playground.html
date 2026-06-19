@@ -1,4 +1,8 @@
+{% if include.id %}
 <div class="playground" data-playground="{{ include.id }}">
+{% else %}
+<div class="playground" data-playground="playground-{% increment pg_counter %}">
+{% endif %}
   <div class="playground-tabs">
     <button class="playground-tab is-active" data-panel="html">HTML</button>
     <button class="playground-tab" data-panel="css">CSS</button>
@@ -10,9 +14,12 @@
       <textarea class="playground-textarea html" data-lang="html" rows="10" spellcheck="false">{{ include.initial_html | escape }}</textarea>
       <textarea class="playground-textarea css" data-lang="css" rows="10" spellcheck="false" style="display:none">{{ include.initial_css | escape }}</textarea>
       <textarea class="playground-textarea js" data-lang="js" rows="10" spellcheck="false" style="display:none">{{ include.initial_js | escape }}</textarea>
+      <div class="playground-resizer" role="separator" aria-label="Resize editor and preview"></div>
     </div>
     <div class="playground-preview">
+      <div class="playground-loading" aria-live="polite">Loading preview…</div>
       <iframe class="playground-iframe" sandbox="allow-scripts allow-modals" title="Live preview"></iframe>
     </div>
   </div>
+  <button type="button" class="playground-toggle-preview" hidden>▲ Hide result</button>
 </div>

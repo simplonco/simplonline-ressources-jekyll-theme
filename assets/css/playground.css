@@ -4,6 +4,9 @@
   overflow: hidden;
   margin: var(--spacing-lg) 0;
   background: var(--color-bg);
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .playground-tabs {
@@ -53,21 +56,69 @@
   color: var(--color-red);
 }
 
+.playground-toggle-preview {
+  display: none;
+}
+
 .playground-panes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 300px;
+  position: relative;
 }
 
 .playground-editor {
   border-right: 1px solid var(--color-border);
   min-width: 0;
+  position: relative;
+}
+
+.playground-resizer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -3px;
+  width: 6px;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 1;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.playground-resizer:hover,
+.playground-resizer.is-dragging {
+  background: var(--color-red);
 }
 
 .playground-preview {
   display: flex;
   align-items: stretch;
   min-width: 0;
+  position: relative;
+}
+
+.playground-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+.playground-loading.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.playground-loading.is-error {
+  color: var(--color-red);
 }
 
 .playground-iframe {
@@ -192,5 +243,33 @@ html.dark-mode .CodeMirror-focused .CodeMirror-selected { background: rgba(228, 
   .playground-editor {
     border-right: none;
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .playground-resizer {
+    display: none;
+  }
+
+  .playground-toggle-preview {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-header-bg);
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .playground-toggle-preview:hover {
+    color: var(--color-text);
+  }
+
+  .playground-preview.is-collapsed {
+    display: none;
   }
 }

@@ -29,9 +29,9 @@
 - [x] 5.3 Show/hide CodeMirror wrappers on tab switch, refresh on show
 - [x] 5.4 Add syntax colors (light + dark theme) via CodeMirror CSS overrides
 
-## 6. Improvements (pending)
+## 6. Improvements
 
-- [ ] 5.1 Generate unique `id` automatically if not provided
-- [ ] 5.2 Add collapsed "View result" toggle on mobile to save vertical space
-- [ ] 5.3 Show a loading state or error if the iframe fails to load
-- [ ] 5.4 Allow resizing the editor/preview split
+- [x] 5.1 Generate unique `id` automatically if not provided
+- [x] 5.2 Add collapsed "View result" toggle on mobile to save vertical space
+- [x] 5.3 Show a loading state or error if the iframe fails to load
+- [x] 5.4 Allow resizing the editor/preview split
