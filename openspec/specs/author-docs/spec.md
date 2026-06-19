@@ -1,4 +1,10 @@
-## ADDED Requirements
+# author-docs
+
+## Purpose
+
+Documenter les fonctionnalités du thème à destination des formateurs/auteurs de contenus, afin qu'ils sachent quelles features sont disponibles et comment les utiliser.
+
+## Requirements
 
 ### Requirement: README documents all author-facing features
 
@@ -10,7 +16,7 @@ The project SHALL include detailed documentation of all author-facing features i
 - Table of Contents with `show_toc: true`
 - Syntax highlighting via Rouge (supported languages, dark mode support)
 - YouTube video embedding (thumbnail on GitHub, iframe on GitHub Pages)
-- Interactive playground inclusion (`{% include playground.html %}`) with all parameters
+- Interactive playground inclusion (`{% raw %}{% include playground.html %}{% endraw %}`) with all parameters
 - Utility CSS classes (alert boxes, text alignment)
 
 Each feature SHALL include the author-facing syntax with examples and parameter tables where applicable.
