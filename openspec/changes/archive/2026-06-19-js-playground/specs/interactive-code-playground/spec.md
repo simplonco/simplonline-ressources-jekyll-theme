@@ -19,6 +19,11 @@ Le thème SHALL fournir un éditeur de code avec trois onglets (HTML, CSS, JS).
 - **WHEN** le playground est inclus avec des paramètres `initial_html`, `initial_css`, `initial_js`
 - **THEN** chaque textarea est pré-rempli avec le contenu correspondant
 
+#### Scenario: Coloration syntaxique
+- **WHEN** l'utilisateur modifie le code dans un onglet
+- **THEN** le code est colorisé selon la syntaxe du langage (HTML, CSS ou JS)
+- **AND** les couleurs s'adaptent au thème clair/sombre
+
 ### Requirement: Prévisualisation en direct
 Le thème SHALL afficher un aperçu du code exécuté dans une iframe sandboxée.
 
@@ -28,7 +33,7 @@ Le thème SHALL afficher un aperçu du code exécuté dans une iframe sandboxée
 
 #### Scenario: Isolation
 - **WHEN** le code est exécuté dans la prévisualisation
-- **THEN** il est isolé dans une iframe avec l'attribut `sandbox="allow-scripts"`
+- **THEN** il est isolé dans une iframe avec l'attribut `sandbox="allow-scripts allow-modals"`
 - **AND** le code de la page parente n'est pas accessible depuis l'iframe
 
 ### Requirement: Export vers CodePen
