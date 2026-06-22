@@ -21,7 +21,7 @@ Tu dois intégrer en HTML et CSS la carte de profil ci-dessous. La carte contien
 
 ## Maquette
 
-![Carte de profil — maquette](../assets/images/demo-mockup.png)
+![Carte de profil — maquette](./demo-mockup.png)
 
 ### Style guide de la maquette
 - Background color: `#598FB6`

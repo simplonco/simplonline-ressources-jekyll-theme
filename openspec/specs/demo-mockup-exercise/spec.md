@@ -1,18 +1,26 @@
-## ADDED Requirements
+# demo-mockup-exercise
+
+## Purpose
+
+Fournir un exercice d'intégration HTML/CSS complet avec maquette de référence, consignes, critères d'évaluation, et solution interactive dans un `<details>` avec playground.
+
+## Requirements
 
 ### Requirement: Demo mockup exercise page exists
 
-The project SHALL provide a demo exercise page at `demo/integration-maquette.md` that SHALL include:
+The project SHALL provide a demo exercise at `demo/README.md` that SHALL include:
 
-- A mockup image for the learner to replicate
+- A mockup image (`demo/demo-mockup.png`) for the learner to replicate
+- An image (`demo/miss-light.png`) to use in the integration
 - Written instructions with steps
 - Code snippets for the learner to use as a starting point
 - A YouTube video resource link
+- Evaluation criteria with bonus options
 - The solution inside a `<details>` element with the playground
 
 #### Scenario: Learner opens the exercise page
-- **WHEN** a learner navigates to `/demo/integration-maquette`
-- **THEN** they see a mockup image, written instructions, code snippets, and a video resource
+- **WHEN** a learner navigates to `/demo/`
+- **THEN** they see a mockup image, written instructions, code snippets, evaluation criteria, and a video resource
 - **AND** the solution is hidden inside a `<details>` element
 
 #### Scenario: Learner reveals the solution

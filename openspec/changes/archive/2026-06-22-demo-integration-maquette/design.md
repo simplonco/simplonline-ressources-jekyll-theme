@@ -5,9 +5,10 @@ Le playground `<details>` est important car il permet de cacher la solution jusq
 ## Goals / Non-Goals
 
 **Goals:**
-- Créer une page d'exercice complète avec maquette, consignes, étapes, ressources
+- Créer un exercice complet dans `demo/README.md` avec maquette, consignes, étapes, ressources
 - Solution interactive dans `<details>` avec playground
 - Le playground fonctionne correctement même dans `<details>` initialement fermé
+- Nettoyer les anciennes démos (exercices, js-playground)
 
 **Non-Goals:**
 - Créer d'autres exercices (un seul pour l'instant)
@@ -17,7 +18,7 @@ Le playground `<details>` est important car il permet de cacher la solution jusq
 
 1. **`<details>` pour la solution** — standard HTML, accessible, sans JS
 2. **`initDetails()` dans playground.js** — écoute l'événement `toggle` et appelle `cm.refresh()`
-3. **Image de maquette déplacée dans `assets/images/`** — standardisation des assets
+3. **Images dans `demo/`** — maquette et image d'intégration au même niveau que la page
 
 ## Risks / Trade-offs
 
