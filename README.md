@@ -65,9 +65,8 @@ When `parent` is set, a "← Back to [parent title]" link appears at the top of 
 
 ## Table of contents
 
-Enable with `show_toc: true` in the page front matter. The TOC is generated from H2 through H6 headings. On screens wider than 1200px, it appears as a sticky sidebar; on smaller screens it shows at the top of the content.
+Enable with `show_toc: true` in the page front matter. The TOC is generated from H2 through H6 headings. On screens wider than 1200px, it appears as a sticky sidebar; on smaller screens it shows at the top of the content. `id` attributes on headings are generated automatically by kramdown, so you can link to them directly.
 
-> The TOC is generated client-side by JavaScript. All headings must have an `id` attribute (kramdown generates them automatically).
 
 ## Syntax highlighting
 
@@ -79,6 +78,11 @@ const name = "Alice";
 let age = 25;
 ```
 </pre>
+will render as:
+```javascript
+const name = "Alice";
+let age = 25;
+```
 
 <pre>
 ```css
@@ -88,8 +92,15 @@ let age = 25;
 }
 ```
 </pre>
+will render as:
+```css
+.card {
+  background: #fff;
+  border-radius: 8px;
+}
+```
 
-Supported languages: any language supported by Rouge (JavaScript, CSS, HTML, Python, Ruby, Bash, YAML, etc.). Code blocks appear with a dark background, line numbers, and syntax-colored tokens. Colors adapt automatically in dark mode.
+Supported languages: any language supported by Rouge (JavaScript, CSS, HTML, Python, Ruby, Bash, YAML, etc.).
 
 ## YouTube embeds
 
@@ -101,15 +112,11 @@ YouTube links are automatically converted to embedded video players on GitHub Pa
 [![Video title](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/VIDEO_ID)
 ```
 
+[![Video title](https://img.youtube.com/vi/jNQXAC9IVRw/0.jpg)](https://youtu.be/jNQXAC9IVRw)
+
+
 On GitHub this shows the video thumbnail as a link. On GitHub Pages the thumbnail is replaced by a 16:9 iframe player with YouTube's privacy-enhanced mode (`youtube-nocookie.com`).
 
-### Bare URL syntax
-
-```
-https://youtu.be/VIDEO_ID
-```
-
-Auto-detected and converted the same way. Supports fullscreen.
 
 ## Interactive playground
 
@@ -149,26 +156,101 @@ All three code parameters can be omitted — pass only what you need.
 
 The playground renders with three tabs (HTML, CSS, JS), a CodeMirror editor with syntax highlighting, and a live preview panel. The preview updates automatically on every change (300ms debounce). A "Open in CodePen" button exports the code. On mobile, the preview collapses below the editor with a "View result" toggle.
 
+{% capture my_html %}
+<h1>Hello World</h1>
+{% endcapture %}
+
+{% capture my_css %}
+h1 { color: red; }
+{% endcapture %}
+
+{% capture my_js %}
+console.log('Hello');
+{% endcapture %}
+
+{% include playground.html
+  id="demo"
+  initial_html=my_html
+  initial_css=my_css
+  initial_js=my_js
+%}
+
+For a minimal playground with small initial code, you can use inline code instead of <code>&#123;% capture %}</code> blocks:
+
+<pre><code>&#123;% include playground.html
+  id="mini"
+  initial_html="&lt;h1&gt;Hello&lt;/h1&gt;"
+%}
+</code></pre>
+
 ## Utility classes
 
-Use these CSS classes in inline HTML within your Markdown:
+Thanks to kramdown's Markdown parser, you can add classes to any block element by appending `{:.classname}` after the block. For example:
+
+Available utility classes:
+- `alert-info` — blue left border, for informational messages
+- `alert-warning` — orange left border, for warnings
+- `text-center` — center-align text
+- `text-end` — right-align text
+
 
 ```html
-<div class="alert-info">
-  <strong>Info:</strong> Remember to check your syntax.
-</div>
+**Info**: Remember to check your syntax.
+{: .alert-info} 
 
-<div class="alert-warning">
-  <strong>Warning:</strong> This feature is deprecated.
-</div>
+**Warning**: This feature is deprecated.
+{: .alert-warning}
+
+**Text aligned center**
+{: .text-center}
+
+**Text aligned right**
+{: .text-end}
 ```
 
-```html
-<p class="text-center">Centered text</p>
-<p class="text-end">Right-aligned text</p>
+**Info**: Remember to check your syntax.
+{: .alert-info} 
+
+**Warning**: This feature is deprecated.
+{: .alert-warning}
+
+**Text aligned center**
+{: .text-center}
+
+**Text aligned right**
+{: .text-end}
+
+**Combined example**:
+Alert box with warning style and centered text.
+{: .alert-warning .text-center}
+
+## Quotes
+Use blockquotes for quotes:
+
+```markdown
+> This is a quote.
+> It can span multiple lines.
 ```
 
-Alert boxes render as blocks with a colored left border (blue for info, orange for warning). Text alignment classes align text as expected.
+> This is a quote.  
+> It can span multiple lines.
+
+## Tips
+Breaklines with two spaces at the end of a line, or use `<br>` for a hard break:
+
+```markdown
+This is a line with a break after it.  
+This is the next line.
+
+This is a line with a hard break.<br>
+This is the next line.
+```
+
+This is a line with a break after it.  
+This is the next line.
+
+This is a line with a hard break.<br>
+This is the next line.
 
 ## Local development
 

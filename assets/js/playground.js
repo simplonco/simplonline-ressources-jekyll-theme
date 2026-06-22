@@ -75,6 +75,18 @@
     };
   }
 
+  function initDetails(container) {
+    const details = container.closest('details');
+    if (!details) return;
+    const editors = container.CodeMirrorEditors;
+    if (!editors) return;
+    details.addEventListener('toggle', function () {
+      if (details.open) {
+        editors.forEach(function (cm) { setTimeout(function () { cm.refresh(); }, 0); });
+      }
+    });
+  }
+
   function initPlayground(container) {
     const tabs = container.querySelectorAll('.playground-tab');
     const textareas = container.querySelectorAll('.playground-textarea');
@@ -108,6 +120,8 @@
     });
 
     container.CodeMirrorEditors = editors;
+
+    initDetails(container);
 
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
