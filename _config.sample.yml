@@ -1,0 +1,31 @@
+# Sample _config.yml for Simplonline Ressources
+# Copy this file to _config.yml and customize it.
+
+remote_theme: simplonco/simplonline-ressources-jekyll-theme
+
+title: My Site Title
+description: My site description
+lang: en
+
+# Show table of contents on every page by default
+show_toc: true
+
+# Render the repository README.md as the site index
+readme_index:
+  with_frontmatter: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  auto_ids: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-readme-index
+  - jekyll-remote-theme

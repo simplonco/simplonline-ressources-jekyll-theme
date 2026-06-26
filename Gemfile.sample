@@ -1,0 +1,8 @@
+# Sample Gemfile for Simplonline Ressources
+# Copy this file to Gemfile, then run `bundle install`.
+
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.3"
+gem "jekyll-remote-theme"
+gem "jekyll-readme-index"
