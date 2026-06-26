@@ -47,12 +47,11 @@ Créez un `Gemfile` à la racine de votre projet :
 ```ruby
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.3"
-gem "jekyll-remote-theme"
-gem "jekyll-readme-index"
+gem "github-pages", group: :jekyll_plugins
+gem "webrick", "~> 1.8"
 ```
 
-<a href="./Gemfile.sample" download>⬇ Télécharger Gemfile.sample</a>
+<a href="./sample-Gemfile" download="Gemfile">⬇ Télécharger Gemfile</a>
 
 ### 3. _config.yml
 
@@ -87,7 +86,7 @@ plugins:
   - jekyll-remote-theme
 ```
 
-<a href="./_config.sample.yml" download>⬇ Télécharger _config.sample.yml</a>
+<a href="./_config-sample.yml" download="_config.yml">⬇ Télécharger _config.yml</a>
 
 #### Configuration options
 
