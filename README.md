@@ -14,13 +14,82 @@ A Jekyll theme for creating learning resources (exercises, tutorials, static pag
 
 ## Installation
 
-Add this line to your `_config.yml`:
+### 1. Scaffold the project
+
+```bash
+mkdir my-site
+cd my-site
+git init
+```
+
+Create a `.gitignore`:
+
+```gitignore
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock
+.vendor/
+.bundle/
+```
+
+Add your remote (replace the URL with your actual repository):
+
+```bash
+git remote add origin https://github.com/username/my-site.git
+```
+
+### 2. Gemfile
+
+Create a `Gemfile` in your project root:
+
+```ruby
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.3"
+gem "jekyll-remote-theme"
+gem "jekyll-readme-index"
+```
+
+<a href="./Gemfile.sample" download>⬇ Download Gemfile.sample</a>
+
+### 3. _config.yml
+
+Create a `_config.yml` with the theme reference and your settings:
 
 ```yaml
 remote_theme: simplonco/simplonline-ressources-jekyll-theme
+
+title: My Site Title
+description: My site description
+lang: en
+
+show_toc: true
+
+readme_index:
+  with_frontmatter: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  auto_ids: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-readme-index
+  - jekyll-remote-theme
 ```
 
-## Configuration
+<a href="./_config.sample.yml" download>⬇ Download _config.sample.yml</a>
+
+#### Configuration options
 
 | Variable      | Type   | Default | Description |
 |---------------|--------|---------|-------------|
@@ -28,6 +97,18 @@ remote_theme: simplonco/simplonline-ressources-jekyll-theme
 | `description` | string | —       | Site description |
 | `lang`        | string | `en`    | HTML lang attribute |
 | `show_toc`    | bool   | `false` | Show table of contents on each page |
+
+### 4. Run the server
+
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+Your site will be available at `http://localhost:4000`.
+
+{: .alert-info }
+**How pages work:** `README.md` is the entry point of your site. It is automatically converted to `index.html`. Create additional pages as Markdown files (e.g., `about.md`, `contact.md`) anywhere in the repository; each becomes a page on your site.
 
 ## Page front matter
 
@@ -251,13 +332,6 @@ This is the next line.
 
 This is a line with a hard break.<br>
 This is the next line.
-
-## Local development
-
-```bash
-bundle install
-bundle exec jekyll serve --livereload
-```
 
 ## Contributing
 

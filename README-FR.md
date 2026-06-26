@@ -14,13 +14,82 @@ Un thème Jekyll pour créer des ressources pédagogiques (exercices, tutoriels,
 
 ## Installation
 
-Ajoutez cette ligne dans votre `_config.yml` :
+### 1. Préparer le projet
+
+```bash
+mkdir mon-site
+cd mon-site
+git init
+```
+
+Créez un `.gitignore` :
+
+```gitignore
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock
+.vendor/
+.bundle/
+```
+
+Ajoutez votre dépôt distant (remplacez l'URL par votre véritable dépôt) :
+
+```bash
+git remote add origin https://github.com/utilisateur/mon-site.git
+```
+
+### 2. Gemfile
+
+Créez un `Gemfile` à la racine de votre projet :
+
+```ruby
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.3"
+gem "jekyll-remote-theme"
+gem "jekyll-readme-index"
+```
+
+<a href="./Gemfile.sample" download>⬇ Télécharger Gemfile.sample</a>
+
+### 3. _config.yml
+
+Créez un `_config.yml` avec la référence au thème et vos réglages :
 
 ```yaml
 remote_theme: simplonco/simplonline-ressources-jekyll-theme
+
+title: Titre de mon site
+description: Description de mon site
+lang: fr
+
+show_toc: true
+
+readme_index:
+  with_frontmatter: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  auto_ids: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-readme-index
+  - jekyll-remote-theme
 ```
 
-## Configuration
+<a href="./_config.sample.yml" download>⬇ Télécharger _config.sample.yml</a>
+
+#### Configuration options
 
 | Variable      | Type   | Défaut | Description |
 |---------------|--------|--------|-------------|
@@ -28,6 +97,18 @@ remote_theme: simplonco/simplonline-ressources-jekyll-theme
 | `description` | string | —      | Description du site |
 | `lang`        | string | `en`   | Attribut HTML lang |
 | `show_toc`    | bool   | `false`| Afficher la table des matières |
+
+### 4. Lancez le serveur
+
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+Votre site sera accessible à l'adresse `http://localhost:4000`.
+
+{: .alert-info }
+**Fonctionnement des pages :** `README.md` est le point d'entrée de votre site. Il est automatiquement converti en `index.html`. Ajoutez d'autres pages en Markdown (ex : `about.md`, `contact.md`) à n'importe quel endroit du dépôt ; chacune devient une page de votre site.
 
 ## Front Matter des pages
 
@@ -169,13 +250,6 @@ Utilisez ces classes CSS dans du HTML inline au sein de votre Markdown :
 ```
 
 Les encadrés d'alerte s'affichent avec une bordure colorée à gauche (bleu pour info, orange pour attention). Les classes d'alignement alignent le texte comme attendu.
-
-## Développement local
-
-```bash
-bundle install
-bundle exec jekyll serve --livereload
-```
 
 ## Contribution
 
