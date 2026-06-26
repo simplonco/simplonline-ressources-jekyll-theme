@@ -21,3 +21,8 @@ defaults:
 
 plugins:
   - jekyll-readme-index
+
+exclude:
+  - openspec/
+  - "*.sample.yml"
+  - sample-*
