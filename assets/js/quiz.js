@@ -36,6 +36,11 @@
       qTitle.textContent = q.question;
       qEl.appendChild(qTitle);
 
+      var hint = document.createElement('span');
+      hint.className = 'quiz-hint';
+      hint.textContent = isMultiple ? 'Plusieurs réponses possibles' : 'Une seule réponse';
+      qEl.appendChild(hint);
+
       var options = document.createElement('div');
       options.className = 'quiz-options';
 

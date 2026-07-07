@@ -26,12 +26,20 @@
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
   color: var(--color-text);
   float: left;
 }
 .quiz-question-text + * {
   clear: both;
+}
+
+.quiz-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  margin-top: 0.125rem;
 }
 
 .quiz-options {
