@@ -1,0 +1,121 @@
+.quiz {
+  --quiz-correct-bg: #e6f7e6;
+  --quiz-correct-border: #1B7C3E;
+  --quiz-correct-text: #1B7C3E;
+  --quiz-incorrect-bg: #ffe6ea;
+  --quiz-incorrect-border: var(--color-red);
+  margin: var(--spacing-lg) 0;
+}
+.quiz:first-child {
+  margin-top: 0;
+}
+
+.quiz-question {
+  margin: 0 0 var(--spacing-lg);
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  min-inline-size: min-content;
+}
+.quiz-question:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-question-text {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: var(--color-text);
+  float: left;
+}
+.quiz-question-text + * {
+  clear: both;
+}
+
+.quiz-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+  margin-top: 0.125rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.quiz-option:hover {
+  background: var(--color-code-bg);
+}
+.quiz-option input {
+  accent-color: var(--color-red);
+}
+
+.quiz-option.is-correct {
+  background: var(--quiz-correct-bg);
+  border-color: var(--quiz-correct-border);
+  color: var(--quiz-correct-text);
+}
+.quiz-option.is-correct input {
+  accent-color: var(--quiz-correct-border);
+}
+.quiz-option.is-incorrect {
+  background: var(--quiz-incorrect-bg);
+  border-color: var(--quiz-incorrect-border);
+}
+.quiz-option.is-correct,
+.quiz-option.is-incorrect {
+  cursor: default;
+}
+.quiz-option.is-correct input,
+.quiz-option.is-incorrect input {
+  pointer-events: none;
+}
+
+.quiz-submit {
+  margin-top: var(--spacing-md);
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--color-red);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-red);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, opacity 0.15s;
+}
+.quiz-submit:hover:not(:disabled) {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+.quiz-submit:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+html.dark-mode .quiz {
+  --quiz-correct-bg: #1a3a1a;
+  --quiz-correct-border: #4CAF50;
+  --quiz-correct-text: #81C784;
+  --quiz-incorrect-bg: #3a1a1e;
+}
