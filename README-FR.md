@@ -229,6 +229,45 @@ Les trois paramètres de code sont optionnels — passez seulement ce dont vous 
 
 Le playground affiche trois onglets (HTML, CSS, JS), un éditeur CodeMirror avec colorisation syntaxique, et un aperçu en direct. L'aperçu se met à jour automatiquement à chaque changement (délai de 300ms). Un bouton "Open in CodePen" exporte le code. Sur mobile, l'aperçu se replie sous l'éditeur avec un bouton "View result".
 
+## Quiz interactif
+
+Intégrez un QCM interactif dans vos pages avec l'inclusion `quiz.html`.
+
+{% raw %}
+```
+{% capture quiz_data %}
+[{"question":"Que signifie HTML ?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0}]
+{% endcapture %}
+{% include quiz.html data=quiz_data %}
+```
+{% endraw %}
+
+| Paramètre | Requis | Description |
+|-----------|--------|-------------|
+| `data`    | oui    | Tableau JSON de questions (chaîne capturée via {% raw %}`{% capture %}`{% endraw %}) |
+
+**Format d'une question :**
+
+```json
+{
+  "question": "L'intitulé",
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "correct": 0
+}
+```
+
+- `question` (string) — l'intitulé de la question
+- `options` (array) — les choix proposés
+- `correct` (number ou array) — index de la réponse unique, **ou** tableau d'indices pour les réponses multiples
+
+**Exemple à réponses multiples :**
+
+```json
+{"question":"Langages de programmation ?","options":["HTML","Python","CSS","JavaScript"],"correct":[1,3]}
+```
+
+Le quiz rend chaque question dans un `<fieldset>` avec `legend`. Le type d'input (`radio` ou `checkbox`) est automatiquement choisi selon que `correct` soit un nombre ou un tableau. Un bouton "Valider" déclenche le feedback visuel : vert pour les bonnes réponses, rouge pour les mauvaises. La navigation clavier est supportée (Tab, flèches, Enter).
+
 ## Classes utilitaires
 
 Utilisez ces classes CSS dans du HTML inline au sein de votre Markdown :

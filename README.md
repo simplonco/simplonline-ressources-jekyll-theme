@@ -263,6 +263,45 @@ For a minimal playground with small initial code, you can use inline code instea
 %}
 </code></pre>
 
+## Interactive quiz
+
+Embed a QCM (multiple choice quiz) in your pages using the `quiz.html` include.
+
+{% raw %}
+```
+{% capture quiz_data %}
+[{"question":"What does HTML stand for?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0}]
+{% endcapture %}
+{% include quiz.html data=quiz_data %}
+```
+{% endraw %}
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `data`    | yes      | JSON array of questions (captured via {% raw %}`{% capture %}`{% endraw %}) |
+
+**Question format:**
+
+```json
+{
+  "question": "Question text",
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "correct": 0
+}
+```
+
+- `question` (string) — the question text
+- `options` (array) — answer choices
+- `correct` (number or array) — index of the single correct answer, **or** an array of indices for multiple correct answers
+
+**Multiple-answer example:**
+
+```json
+{"question":"Which are programming languages?","options":["HTML","Python","CSS","JavaScript"],"correct":[1,3]}
+```
+
+Each question renders inside a `<fieldset>` with a `<legend>`. The input type (`radio` or `checkbox`) is automatically chosen based on whether `correct` is a number or an array. A "Valider" (Submit) button triggers visual feedback: green for correct answers, red for incorrect ones. Keyboard navigation is fully supported (Tab, arrow keys, Enter).
+
 ## Utility classes
 
 Thanks to kramdown's Markdown parser, you can add classes to any block element by appending `{:.classname}` after the block. For example:
