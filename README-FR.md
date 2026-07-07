@@ -260,6 +260,12 @@ Intégrez un QCM interactif dans vos pages avec l'inclusion `quiz.html`.
 - `options` (array) — les choix proposés
 - `correct` (number ou array) — index de la réponse unique, **ou** tableau d'indices pour les réponses multiples
 
+**Exemple à réponse unique :**
+
+```json
+{"question":"Que signifie HTML ?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0}
+```
+
 **Exemple à réponses multiples :**
 
 ```json

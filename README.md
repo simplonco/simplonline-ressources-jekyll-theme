@@ -294,6 +294,12 @@ Embed a QCM (multiple choice quiz) in your pages using the `quiz.html` include.
 - `options` (array) — answer choices
 - `correct` (number or array) — index of the single correct answer, **or** an array of indices for multiple correct answers
 
+**Single-answer example:**
+
+```json
+{"question":"What does HTML stand for?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0}
+```
+
 **Multiple-answer example:**
 
 ```json
