@@ -274,6 +274,13 @@ Intégrez un QCM interactif dans vos pages avec l'inclusion `quiz.html`.
 
 Le quiz rend chaque question dans un `<fieldset>` avec `legend`. Le type d'input (`radio` ou `checkbox`) est automatiquement choisi selon que `correct` soit un nombre ou un tableau. Un bouton "Valider" déclenche le feedback visuel : vert pour les bonnes réponses, rouge pour les mauvaises. La navigation clavier est supportée (Tab, flèches, Enter).
 
+**Exemple en direct :**
+
+{% capture quiz_data %}
+[{"question":"Que signifie HTML ?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0},{"question":"Parmi ces langages, lesquels sont des langages de programmation ?","options":["HTML","Python","CSS","JavaScript"],"correct":[1,3]}]
+{% endcapture %}
+{% include quiz.html data=quiz_data %}
+
 ## Classes utilitaires
 
 Utilisez ces classes CSS dans du HTML inline au sein de votre Markdown :

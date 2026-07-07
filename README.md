@@ -308,6 +308,13 @@ Embed a QCM (multiple choice quiz) in your pages using the `quiz.html` include.
 
 Each question renders inside a `<fieldset>` with a `<legend>`. The input type (`radio` or `checkbox`) is automatically chosen based on whether `correct` is a number or an array. A "Valider" (Submit) button triggers visual feedback: green for correct answers, red for incorrect ones. Keyboard navigation is fully supported (Tab, arrow keys, Enter).
 
+**Live example:**
+
+{% capture quiz_data %}
+[{"question":"What does HTML stand for?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0},{"question":"Which are programming languages?","options":["HTML","Python","CSS","JavaScript"],"correct":[1,3]}]
+{% endcapture %}
+{% include quiz.html data=quiz_data %}
+
 ## Utility classes
 
 Thanks to kramdown's Markdown parser, you can add classes to any block element by appending `{:.classname}` after the block. For example:
