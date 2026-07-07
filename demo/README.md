@@ -55,7 +55,7 @@ Regarde cette vidéo pour voir les bases de l'intégration HTML/CSS :
 Un petit QCM pour vérifier ta compréhension des bases du HTML et CSS :
 
 {% capture quiz_data %}  
-[{"question":"Que signifie HTML ?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0},{"question":"Quel sélecteur CSS cible un élément par son ID ?","options":[".mon-id","#mon-id","*mon-id","[mon-id]"],"correct":1},{"question":"Quelle balise HTML permet de créer un lien hypertexte ?","options":["<link>","<a>","<href>","<url>"],"correct":1}]
+[{"question":"Que signifie HTML ?","options":["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup Language","Hyper Transfer Markup Language"],"correct":0},{"question":"Quel sélecteur CSS cible un élément par son ID ?","options":[".mon-id","#mon-id","*mon-id","[mon-id]"],"correct":1},{"question":"Quelle balise HTML permet de créer un lien hypertexte ?","options":["<link>","<a>","<href>","<url>"],"correct":1},{"question":"Parmi ces langages, lesquels sont des langages de programmation ?","options":["HTML","Python","CSS","JavaScript"],"correct":[1,3]}]
 {% endcapture %}  
 {% include quiz.html data=quiz_data %}
 

@@ -22,7 +22,11 @@
     script.remove();
 
     questions.forEach(function (q, qi) {
-      if (!q.question || !Array.isArray(q.options) || q.options.length < 2 || typeof q.correct !== 'number') return;
+      if (!q.question || !Array.isArray(q.options) || q.options.length < 2) return;
+      var isMultiple = Array.isArray(q.correct);
+      if (!isMultiple && typeof q.correct !== 'number') return;
+
+      var correctValues = isMultiple ? q.correct : [q.correct];
 
       var qEl = document.createElement('fieldset');
       qEl.className = 'quiz-question';
@@ -46,7 +50,7 @@
         label.dataset.optionIndex = oi;
 
         var input = document.createElement('input');
-        input.type = 'radio';
+        input.type = isMultiple ? 'checkbox' : 'radio';
         input.id = inputId;
         input.name = groupName;
         input.value = oi;
@@ -60,7 +64,11 @@
 
         input.addEventListener('change', function () {
           if (q._answered) return;
-          submitBtn.disabled = false;
+          if (isMultiple) {
+            submitBtn.disabled = !options.querySelector('input:checked');
+          } else {
+            submitBtn.disabled = false;
+          }
         });
       });
 
@@ -80,20 +88,34 @@
         q._answered = true;
         submitBtn.disabled = true;
 
-        var selectedIndex = parseInt(checked.value);
-        var selectedLabel = options.querySelector('[data-option-index="' + selectedIndex + '"]');
-
         var allInputs = options.querySelectorAll('input');
         for (var ii = 0; ii < allInputs.length; ii++) {
           allInputs[ii].disabled = true;
         }
 
-        var isCorrect = selectedIndex === q.correct;
-        selectedLabel.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
-
-        if (!isCorrect) {
-          var correctLabel = options.querySelector('[data-option-index="' + q.correct + '"]');
-          if (correctLabel) correctLabel.classList.add('is-correct');
+        if (isMultiple) {
+          q.options.forEach(function (opt, oi) {
+            var label = options.querySelector('[data-option-index="' + oi + '"]');
+            if (!label) return;
+            var input = document.getElementById(label.htmlFor);
+            var isInCorrect = correctValues.indexOf(oi) !== -1;
+            if (input.checked && isInCorrect) {
+              label.classList.add('is-correct');
+            } else if (input.checked && !isInCorrect) {
+              label.classList.add('is-incorrect');
+            } else if (!input.checked && isInCorrect) {
+              label.classList.add('is-correct');
+            }
+          });
+        } else {
+          var selectedIndex = parseInt(checked.value);
+          var selectedLabel = options.querySelector('[data-option-index="' + selectedIndex + '"]');
+          var isCorrect = selectedIndex === q.correct;
+          selectedLabel.classList.add(isCorrect ? 'is-correct' : 'is-incorrect');
+          if (!isCorrect) {
+            var correctLabel = options.querySelector('[data-option-index="' + q.correct + '"]');
+            if (correctLabel) correctLabel.classList.add('is-correct');
+          }
         }
       }
 
