@@ -1,16 +1,15 @@
 ---
-title: Simplonline Ressources — Jekyll Theme
+title: Simplonline Ressources - Jekyll Theme
 layout: default
 show_toc: true
 ---
 
-# Simplonline Ressources — Jekyll Theme
+# Simplonline Ressources - Jekyll Theme
 
 [⬅ Version française](./README-FR)
 
-A Jekyll theme for creating learning resources (exercises, tutorials, static pages) for Simplonline learners. Branded **Wild Code School by Simplon**.
-
-[View demo](./demo/)
+A Jekyll theme for creating learning resources (exercises, tutorials, static pages) for Simplonline learners. Branded **Wild Code School by Simplon**.  
+[View website version](https://simplonco.github.io/simplonline-ressources-jekyll-theme/)
 
 ## Installation
 
@@ -30,8 +29,6 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 Gemfile.lock
-.vendor/
-.bundle/
 ```
 
 Add your remote (replace the URL with your actual repository):
@@ -99,15 +96,24 @@ plugins:
 
 ### 4. Run the server
 
+To test your content locally before deployment, you need to [install Jekyll](https://jekyllrb.com/docs/installation/#guides) on your machine.  
+Once installed, install the project dependencies with Bundler:
+
 ```bash
 bundle install
+```
+Launch the Jekyll server:
+
+```bash
 bundle exec jekyll serve --livereload
 ```
 
 Your site will be available at `http://localhost:4000`.
 
+## How pages work
+
 {: .alert-info }
-**How pages work:** `README.md` is the entry point of your site. It is automatically converted to `index.html`. Create additional pages as Markdown files (e.g., `about.md`, `contact.md`) anywhere in the repository; each becomes a page on your site.
+`README.md` is the entry point of your site. It is automatically converted to `index.html`. Create additional pages as Markdown files (e.g., `about.md`, `contact.md`) anywhere in the repository; each becomes a page on your site.
 
 ## Page front matter
 
@@ -150,37 +156,39 @@ Enable with `show_toc: true` in the page front matter. The TOC is generated from
 
 ## Syntax highlighting
 
-Code blocks are colorized via Rouge (kramdown's default syntax highlighter). Use standard fenced code blocks:
-
-<pre>
-```javascript
-const name = "Alice";
-let age = 25;
-```
-</pre>
-will render as:
-```javascript
-const name = "Alice";
-let age = 25;
-```
-
-<pre>
-```css
-.card {
-  background: #fff;
-  border-radius: 8px;
-}
-```
-</pre>
-will render as:
-```css
-.card {
-  background: #fff;
-  border-radius: 8px;
-}
-```
+Code blocks are colorized via Rouge (kramdown's default syntax highlighter). Use standard fenced code blocks.
 
 Supported languages: any language supported by Rouge (JavaScript, CSS, HTML, Python, Ruby, Bash, YAML, etc.).
+
+### Javascript example
+<pre>
+```javascript
+const name = "Alice";
+let age = 25;
+```
+</pre>
+will render as:
+```javascript
+const name = "Alice";
+let age = 25;
+```
+
+### CSS example
+<pre>
+```css
+.card {
+  background: #fff;
+  border-radius: 8px;
+}
+```
+</pre>
+will render as:
+```css
+.card {
+  background: #fff;
+  border-radius: 8px;
+}
+```
 
 ## YouTube embeds
 
@@ -384,10 +392,6 @@ This is the next line.
 This is a line with a hard break.<br>
 This is the next line.
 
-## Contributing
+## Demo
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## License
-
-MIT — see [LICENSE](./LICENSE).
+[View demo](./demo/)

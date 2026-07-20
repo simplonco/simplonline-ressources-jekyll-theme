@@ -1,12 +1,9 @@
 ---
 title: "Démo : Intégration d'une carte de profil"
 description: Exercice d'intégration HTML/CSS à partir d'une maquette
-parent: Simplonline Ressources — Jekyll Theme
+parent: Simplonline Ressources - Jekyll Theme
 show_toc: true
 ---
-
-Consulter la [version markdown de cette démo]({{ site.baseurl }}/demo/README.md) pour voir le code complet et expérimenter dans le playground intégré.
-{: .alert-info }
 
 ## Consigne
 
@@ -21,7 +18,7 @@ Tu dois intégrer en HTML et CSS la carte de profil ci-dessous. La carte contien
 
 ## Maquette
 
-![Carte de profil — maquette](./demo-mockup.png)
+![Carte de profil - maquette](./demo-mockup.png)
 
 ### Style guide de la maquette
 - Background color: `#598FB6`
@@ -59,7 +56,7 @@ Un petit QCM pour vérifier ta compréhension des bases du HTML et CSS :
 {% endcapture %}  
 {% include quiz.html data=quiz_data %}
 
-## Solution
+## Solution du challenge
 
 <details>
 <summary>Afficher la solution (cliquer pour ouvrir)</summary>
@@ -119,3 +116,8 @@ document.querySelector('article a').addEventListener('click', function (event) {
 %}
 
 </details>
+
+## 👉 Version markdown de cette démo
+
+Consulter la [version markdown de cette démo](https://raw.githubusercontent.com/simplonco/simplonline-ressources-jekyll-theme/refs/heads/main/demo/README.md) pour voir le code complet .
+{: .alert-info }

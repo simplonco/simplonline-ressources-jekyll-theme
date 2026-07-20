@@ -1,16 +1,15 @@
 ---
-title: Simplonline Ressources — Thème Jekyll
+title: Simplonline Ressources - Thème Jekyll
 layout: default
 show_toc: true
 ---
 
-# Simplonline Ressources — Thème Jekyll
+# Simplonline Ressources - Thème Jekyll
 
-[⬅ English version](./README.md)
+[⬅ English version](./)
 
-Un thème Jekyll pour créer des ressources pédagogiques (exercices, tutoriels, pages statiques) à destination des apprenants Simplonline. Marqué **Wild Code School by Simplon**.
-
-[Voir la démo](./demo/)
+Un thème Jekyll pour créer des ressources pédagogiques (exercices, tutoriels, pages statiques) à destination des apprenants Simplonline. Marqué **Wild Code School by Simplon**.  
+[Voir la version web](https://simplonco.github.io/simplonline-ressources-jekyll-theme/)
 
 ## Installation
 
@@ -30,8 +29,6 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 Gemfile.lock
-.vendor/
-.bundle/
 ```
 
 Ajoutez votre dépôt distant (remplacez l'URL par votre véritable dépôt) :
@@ -99,15 +96,23 @@ plugins:
 
 ### 4. Lancez le serveur
 
+Pour tester localement vos contenus avant déploiement, il est nécessaire
+d'[installer Jekyll](https://jekyllrb.com/docs/installation/#guides) sur votre machine.  
+Une fois cela fait, installez les dépendances du projet avec Bundler :
 ```bash
 bundle install
+```
+Lancer le serveur Jekyll :
+```bash
 bundle exec jekyll serve --livereload
 ```
 
 Votre site sera accessible à l'adresse `http://localhost:4000`.
 
+## Fonctionnement des pages
+
 {: .alert-info }
-**Fonctionnement des pages :** `README.md` est le point d'entrée de votre site. Il est automatiquement converti en `index.html`. Ajoutez d'autres pages en Markdown (ex : `about.md`, `contact.md`) à n'importe quel endroit du dépôt ; chacune devient une page de votre site.
+`README.md` est le point d'entrée de votre site. Il est automatiquement converti en `index.html`. Ajoutez d'autres pages en Markdown (ex : `about.md`, `contact.md`) à n'importe quel endroit du dépôt ; chacune devient une page de votre site.
 
 ## Front Matter des pages
 
@@ -151,15 +156,22 @@ Activez avec `show_toc: true` dans le front matter de la page. La TOC est géné
 
 ## Colorisation syntaxique
 
-Les blocs de code sont colorisés via Rouge (le surligneur par défaut de kramdown). Utilisez les blocs de code standards :
+Les blocs de code sont colorisés via Rouge (le surligneur par défaut de kramdown). Utilisez les blocs de code standards.
 
+Langages supportés : tous les langages supportés par Rouge (JavaScript, CSS, HTML, Python, Ruby, Bash, YAML, etc.). Les blocs de code apparaissent avec un fond sombre et des couleurs syntaxiques qui s'adaptent automatiquement en mode sombre.
+### Exemple en JavaScript
 <pre>
 ```javascript
 const name = "Alice";
 let age = 25;
 ```
 </pre>
+```javascript
+const name = "Alice";
+let age = 25;
+```
 
+### Exemple en CSS
 <pre>
 ```css
 .card {
@@ -168,8 +180,12 @@ let age = 25;
 }
 ```
 </pre>
-
-Langages supportés : tous les langages supportés par Rouge (JavaScript, CSS, HTML, Python, Ruby, Bash, YAML, etc.). Les blocs de code apparaissent avec un fond sombre, des numéros de ligne et des couleurs syntaxiques qui s'adaptent automatiquement en mode sombre.
+```css
+.card {
+  background: #fff;
+  border-radius: 8px;
+}
+```
 
 ## Vidéos YouTube
 
@@ -302,10 +318,6 @@ Utilisez ces classes CSS dans du HTML inline au sein de votre Markdown :
 
 Les encadrés d'alerte s'affichent avec une bordure colorée à gauche (bleu pour info, orange pour attention). Les classes d'alignement alignent le texte comme attendu.
 
-## Contribution
+## Démo
 
-Voir [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Licence
-
-MIT — voir [LICENSE](./LICENSE).
+[Voir la démo](./demo/)
