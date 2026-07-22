@@ -133,6 +133,8 @@ html.dark-mode {
   }
 
   img {
+    display: block;
+    margin-block: var(--spacing-md);
     max-width: 100%;
     height: auto;
   }
