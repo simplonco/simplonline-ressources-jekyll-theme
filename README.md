@@ -323,6 +323,65 @@ Each question renders inside a `<fieldset>` with a `<legend>`. The input type (`
 {% endcapture %}
 {% include quiz.html data=quiz_data %}
 
+## Stepper
+
+The stepper component creates an accordion with navigation for step-by-step tutorials. Use a fenced code block with the `stepper` language identifier.
+
+### Syntax
+
+Use 4 backticks for the outer block (to allow nested code blocks inside):
+
+`````
+````stepper
+# Step title
+
+Content in markdown...
+
+# Another step
+
+```html
+<h1>Hello World</h1>
+```
+````
+`````
+
+### How it works
+
+- Each `# Title` becomes an accordion header (`<summary>`)
+- Content between titles is rendered as markdown
+- A navigation bar with Previous/Next buttons is added automatically
+- The first step is open by default
+- Only one step can be open at a time
+
+### Example
+
+````stepper
+# Valider la ressource suivante
+
+Consultez la ressource sur l'introduction au HTML.
+
+# Connaitre la structure de base
+
+Un document HTML suit cette structure :
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon site</title>
+</head>
+<body>
+    <p>Hello World</p>
+</body>
+</html>
+```
+
+# Créer votre premier fichier
+
+Créez un fichier `index.html` et ajoutez le code ci-dessus.
+````
+
 ## Utility classes
 
 Thanks to kramdown's Markdown parser, you can add classes to any block element by appending `{:.classname}` after the block. For example:
@@ -346,6 +405,10 @@ Available utility classes:
 
 **Text aligned right**
 {: .text-end}
+
+**Combined example**:
+Alert box with warning style and centered text.
+{: .alert-warning .text-center}
 ```
 
 **Info**: Remember to check your syntax.
@@ -360,7 +423,7 @@ Available utility classes:
 **Text aligned right**
 {: .text-end}
 
-**Combined example**:
+**Combined example**:  
 Alert box with warning style and centered text.
 {: .alert-warning .text-center}
 

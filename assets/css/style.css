@@ -608,7 +608,106 @@ html.dark-mode {
   .highlight .p {
     color: var(--color-syntax-punctuation);
   }
+
+  .stepper {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .stepper details {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-sm);
+    overflow: hidden;
+  }
+
+  .stepper details summary {
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    background: var(--color-code-bg);
+    transition: background 0.2s;
+    list-style: none;
+  }
+
+  .stepper details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .stepper details summary::before {
+    content: "\25B8";
+    margin-right: var(--spacing-sm);
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+
+  .stepper details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .stepper details summary:hover {
+    background: var(--color-border);
+  }
+
+.stepper details[open] summary {
+  background: var(--color-border);
+  border-left: 3px solid var(--color-red);
 }
+
+  .stepper .stepper-content {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .stepper .stepper-content > :last-child {
+    margin-bottom: 0;
+  }
+
+  .stepper .stepper-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stepper-prev,
+  .stepper-next {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+  }
+
+  .stepper-prev:hover:not(:disabled),
+  .stepper-next:hover:not(:disabled) {
+    background: var(--color-border);
+  }
+
+  .stepper-prev:disabled,
+  .stepper-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .stepper-progress {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+  }
+
+  .stepper hr {
+    display: none;
+  }
+
+
+
 
 @layer utilities {
   .alert-info {
