@@ -652,6 +652,80 @@ const Playground = {
 };
 
 // ============================================
+// STEPPER
+// ============================================
+
+const Stepper = {
+  initAll() {
+    const steppers = DOMUtils.querySelectorAll(document, '.stepper');
+    steppers.forEach((stepper) => Stepper.init(stepper));
+  },
+
+  init(stepper) {
+    const details = Array.from(stepper.querySelectorAll('details'));
+    if (!details.length) return;
+
+    const totalSteps = details.length;
+    let currentIndex = details.findIndex((d) => d.open);
+    if (currentIndex === -1) currentIndex = 0;
+
+    const updateUI = () => {
+      details.forEach((detail, index) => {
+        const prevBtn = detail.querySelector('.stepper-prev');
+        const nextBtn = detail.querySelector('.stepper-next');
+        const progress = detail.querySelector('.stepper-progress');
+
+        if (progress) {
+          progress.textContent = `Étape ${index + 1} / ${totalSteps}`;
+        }
+        if (prevBtn) {
+          prevBtn.disabled = index === 0;
+        }
+        if (nextBtn) {
+          nextBtn.disabled = index === totalSteps - 1;
+        }
+      });
+    };
+
+    const openStep = (index) => {
+      details.forEach((d, i) => {
+        d.open = i === index;
+      });
+      currentIndex = index;
+      updateUI();
+    };
+
+    details.forEach((detail, index) => {
+      const prevBtn = detail.querySelector('.stepper-prev');
+      const nextBtn = detail.querySelector('.stepper-next');
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (currentIndex > 0) openStep(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (currentIndex < totalSteps - 1) openStep(currentIndex + 1);
+        });
+      }
+
+      detail.addEventListener('toggle', () => {
+        if (detail.open && index !== currentIndex) {
+          openStep(index);
+        }
+      });
+    });
+
+    openStep(currentIndex);
+  }
+};
+
+
+// ============================================
 // INITIALISATION
 // ============================================
 
@@ -670,7 +744,9 @@ function initializeAll() {
   SyntaxHighlighter.init();
   YouTubeEmbedder.init();
   Quiz.initAll();
+  Stepper.initAll();
 
   // Playground dépend de CodeMirror, donc on l'initialise séparément
   Playground.initAll();
 }
+

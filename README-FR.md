@@ -297,26 +297,138 @@ Le quiz rend chaque question dans un `<fieldset>` avec `legend`. Le type d'input
 {% endcapture %}
 {% include quiz.html data=quiz_data %}
 
+## Stepper
+
+Le composant stepper crée un accordéon avec navigation pour les tutoriels pas à pas. Utilisez un bloc de code avec l'identifiant de langage `stepper`.
+
+### Syntaxe
+
+Utilisez 4 backticks pour le bloc extérieur (pour autoriser les blocs de code imbriqués) :
+
+`````
+````stepper
+# Titre de l'étape
+
+Contenu en markdown...
+
+# Autre étape
+
+```html
+<h1>Bonjour le monde</h1>
+```
+````
+`````
+
+### Fonctionnement
+
+- Chaque `# Titre` devient un en-tête d'accordéon (`<summary>`)
+- Le contenu entre les titres est rendu en markdown
+- Une barre de navigation avec les boutons Précédent/Suivant est ajoutée automatiquement
+- La première étape est ouverte par défaut
+- Une seule étape peut être ouverte à la fois
+
+### Exemple
+
+````stepper
+# Valider la ressource suivante
+
+Consultez la ressource sur l'introduction au HTML.
+
+# Connaitre la structure de base
+
+Un document HTML suit cette structure :
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon site</title>
+</head>
+<body>
+    <p>Hello World</p>
+</body>
+</html>
+```
+
+# Créer votre premier fichier
+
+Créez un fichier `index.html` et ajoutez le code ci-dessus.
+````
+
 ## Classes utilitaires
 
-Utilisez ces classes CSS dans du HTML inline au sein de votre Markdown :
+Grâce au parser Markdown de kramdown, vous pouvez ajouter des classes à n'importe quel élément bloc en ajoutant `{:.nomdeclasse}` après le bloc. Par exemple :
 
-```html
-<div class="alert-info">
-  <strong>Info :</strong> Pensez à vérifier votre syntaxe.
-</div>
+Classes utilitaires disponibles :
+- `alert-info` — bordure bleue à gauche, pour les messages informatifs
+- `alert-warning` — bordure orange à gauche, pour les avertissements
+- `text-center` — centre le texte
+- `text-end` — aligne le texte à droite
 
-<div class="alert-warning">
-  <strong>Attention :</strong> Cette fonctionnalité est dépréciée.
-</div>
+```markdown
+**Info** : Pensez à vérifier votre syntaxe.
+{: .alert-info}
+
+**Attention** : Cette fonctionnalité est dépréciée.
+{: .alert-warning}
+
+**Texte centré**
+{: .text-center}
+
+**Texte aligné à droite**
+{: .text-end}
+
+**Exemple combiné** :
+Encadré d'alerte avec style warning et texte centré.
+{: .alert-warning .text-center}
 ```
 
-```html
-<p class="text-center">Texte centré</p>
-<p class="text-end">Texte aligné à droite</p>
+**Info** : Pensez à vérifier votre syntaxe.
+{: .alert-info}
+
+**Attention** : Cette fonctionnalité est dépréciée.
+{: .alert-warning}
+
+**Texte centré**
+{: .text-center}
+
+**Texte aligné à droite**
+{: .text-end}
+
+**Exemple combiné** :  
+Encadré d'alerte avec style warning et texte centré.
+{: .alert-warning .text-center}
+
+## Citations
+
+Utilisez les blocs de citation :
+
+```markdown
+> Ceci est une citation.  
+> Elle peut s'étendre sur plusieurs lignes.
 ```
 
-Les encadrés d'alerte s'affichent avec une bordure colorée à gauche (bleu pour info, orange pour attention). Les classes d'alignement alignent le texte comme attendu.
+> Ceci est une citation.  
+> Elle peut s'étendre sur plusieurs lignes.
+
+## Conseils
+
+Saut de ligne avec deux espaces en fin de ligne, ou utilisez `<br>` pour un saut forcé :
+
+```markdown
+Ceci est une ligne avec un saut après celle-ci.  
+Voici la ligne suivante.
+
+Ceci est une ligne avec un saut forcé.<br>
+Voici la ligne suivante.
+```
+
+Ceci est une ligne avec un saut après celle-ci.  
+Voici la ligne suivante.
+
+Ceci est une ligne avec un saut forcé.<br>
+Voici la ligne suivante.
 
 ## Démo
 
