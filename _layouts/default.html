@@ -2,7 +2,7 @@
 <html lang="{{ page.lang | default: site.lang | default: 'en' }}">
 <head>
   {% include head.html %}
-  <title>{% if page.title %}{{ page.title | xml_escape }} — {% endif %}{{ site.title | default: site.github.repository_name | xml_escape }}</title>
+  <title>{% if page.title %}{{ page.title | xml_escape }} — {% endif %}{{ site.title | xml_escape }}</title>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>

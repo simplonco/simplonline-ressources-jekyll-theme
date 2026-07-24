@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="wrapper">
     <div>
-      <h1 class="site-title">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+      <h1 class="site-title">{{ page.title | default: site.title }}</h1>
       {% if page.description %}
         <p class="site-type">{{ page.description }}</p>
       {% elsif site.description %}
