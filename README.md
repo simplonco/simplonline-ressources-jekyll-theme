@@ -327,6 +327,24 @@ Each question renders inside a `<fieldset>` with a `<legend>`. The input type (`
 
 The stepper component creates an accordion with navigation for step-by-step tutorials. Use a fenced code block with the `stepper` language identifier.
 
+### Plugin installation
+
+The stepper functionality is provided by the [`jekyll-stepper`](https://github.com/jeanfrancois-morin/jekyll-stepper) gem. It's automatically included when using this theme.
+
+If you're using `remote_theme`, add the plugin to your `Gemfile`:
+
+```ruby
+gem "jekyll-stepper"
+```
+
+And to your `_config.yml`:
+
+```yaml
+plugins:
+  - jekyll-remote-theme
+  - jekyll-stepper
+```
+
 ### Syntax
 
 Use 4 backticks for the outer block (to allow nested code blocks inside):
