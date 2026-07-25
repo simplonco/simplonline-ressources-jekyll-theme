@@ -301,24 +301,6 @@ Le quiz rend chaque question dans un `<fieldset>` avec `legend`. Le type d'input
 
 Le composant stepper crée un accordéon avec navigation pour les tutoriels pas à pas. Utilisez un bloc de code avec l'identifiant de langage `stepper`.
 
-### Installation du plugin
-
-La fonctionnalité stepper est fournie par la gem [`jekyll-stepper`](https://github.com/jeanfrancois-morin/jekyll-stepper). Elle est automatiquement incluse lorsque vous utilisez ce thème.
-
-Si vous utilisez `remote_theme`, ajoutez le plugin à votre `Gemfile` :
-
-```ruby
-gem "jekyll-stepper"
-```
-
-Et à votre `_config.yml` :
-
-```yaml
-plugins:
-  - jekyll-remote-theme
-  - jekyll-stepper
-```
-
 ### Syntaxe
 
 Utilisez 4 backticks pour le bloc extérieur (pour autoriser les blocs de code imbriqués) :

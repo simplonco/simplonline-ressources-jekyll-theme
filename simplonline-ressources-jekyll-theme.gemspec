@@ -10,5 +10,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "jekyll", "~> 4.3"
   spec.add_runtime_dependency "jekyll-remote-theme"
   spec.add_runtime_dependency "jekyll-readme-index"
-  spec.add_runtime_dependency "jekyll-stepper", "~> 0.1"
 end
