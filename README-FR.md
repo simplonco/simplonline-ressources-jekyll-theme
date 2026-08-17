@@ -109,6 +109,15 @@ Lancer le serveur Jekyll :
 bundle exec jekyll serve --livereload
 ```
 
+{: .alert-warning }
+Si vous utilisez le plugin **Stepper**, le gem `github-pages` impose `safe: true` en local, ce qui empêche les plugins non-autorisés de se charger. Pour prévisualiser les blocs stepper en développement local, préfixez votre commande par :
+
+```bash
+DISABLE_WHITELIST=1 bundle exec jekyll serve --livereload
+```
+
+Ceci n'est pas nécessaire lors du déploiement via GitHub Actions.
+
 Votre site sera accessible à l'adresse `http://localhost:4000`.
 
 ## Fonctionnement des pages
