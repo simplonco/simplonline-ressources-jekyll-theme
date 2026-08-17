@@ -46,6 +46,7 @@ source "https://rubygems.org"
 
 gem "github-pages", group: :jekyll_plugins
 gem "webrick", "~> 1.8"
+gem "jekyll-stepper"
 ```
 
 <a href="./sample-Gemfile" download="Gemfile">⬇ Télécharger Gemfile</a>
@@ -81,6 +82,7 @@ defaults:
 plugins:
   - jekyll-readme-index
   - jekyll-remote-theme
+  - jekyll-stepper
 ```
 
 <a href="./_config-sample.yml" download="_config.yml">⬇ Télécharger _config.yml</a>
