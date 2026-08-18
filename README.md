@@ -44,10 +44,15 @@ Create a `Gemfile` in your project root:
 ```ruby
 source "https://rubygems.org"
 
-gem "github-pages", group: :jekyll_plugins
+gem "jekyll", "~> 4.3"
 gem "webrick", "~> 1.8"
+gem "jekyll-remote-theme"
+gem "jekyll-readme-index"
 gem "jekyll-stepper"
 ```
+
+{: .alert-warning }
+**Do not use the `github-pages` gem.** It enforces `safe: true` which blocks non-whitelisted plugins like `jekyll-stepper`.
 
 <a href="./sample-Gemfile" download="Gemfile">⬇ Download Gemfile</a>
 
@@ -109,15 +114,6 @@ Launch the Jekyll server:
 ```bash
 bundle exec jekyll serve --livereload
 ```
-
-{: .alert-warning }
-If you use the **Stepper** plugin, the `github-pages` gem enforces `safe: true` locally, which blocks non-whitelisted plugins. To preview stepper blocks during local development, prefix your command with:
-
-```bash
-DISABLE_WHITELIST=1 bundle exec jekyll serve --livereload
-```
-
-This is not needed when deploying via GitHub Actions.
 
 Your site will be available at `http://localhost:4000`.
 
