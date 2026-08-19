@@ -231,9 +231,8 @@ html.dark-mode {
 
   .site-header .wrapper {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    flex-wrap: wrap;
     gap: var(--spacing-md);
   }
 
