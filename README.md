@@ -278,6 +278,45 @@ For a minimal playground with small initial code, you can use inline code instea
 %}
 </code></pre>
 
+## Solution within content
+
+If you want to include a solution in your content (e.g., for exercises, playground solutions, etc.), you can use the html `<details markdown="1">` element to create a collapsible section. This allows learners to reveal the solution only when they choose to. The attribute `markdown="1"` enables Markdown rendering inside the `<details>` and `<summary>` tags.
+
+### Example
+
+````markdown
+<details markdown="1">
+<summary>Show solution</summary>
+```html
+<h1>Hello World</h1>
+```
+```css
+h1 { color: red; }
+```
+```javascript
+console.log('Hello');
+```
+</details>
+````
+
+Will render as:
+
+<details markdown="1">
+<summary>Show solution</summary>
+
+```html
+<h1>Hello World</h1>
+```
+
+```css
+h1 { color: red; }
+```
+
+```javascript
+console.log('Hello');
+```
+</details>
+
 ## Interactive quiz
 
 Embed a QCM (multiple choice quiz) in your pages using the `quiz.html` include.

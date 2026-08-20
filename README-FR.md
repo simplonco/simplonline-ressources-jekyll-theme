@@ -280,6 +280,45 @@ For a minimal playground with small initial code, you can use inline code instea
 %}
 </code></pre>
 
+## Solution intégrée au contenu
+
+Si vous souhaitez inclure une solution dans votre contenu (par exemple pour des exercices, des solutions de playground, etc.), vous pouvez utiliser l'élément HTML `<details markdown="1">` pour créer une section rétractable. Cela permet à l'apprenant de révéler la solution uniquement quand il le souhaite. L'attribut `markdown="1"` active le rendu Markdown à l'intérieur des balises `<details>` et `<summary>`.
+
+### Exemple
+
+````markdown
+<details markdown="1">
+<summary>Voir la solution</summary>
+```html
+<h1>Bonjour le monde</h1>
+```
+```css
+h1 { color: red; }
+```
+```javascript
+console.log('Bonjour');
+```
+</details>
+````
+
+Donne :
+
+<details markdown="1">
+<summary>Voir la solution</summary>
+
+```html
+<h1>Bonjour le monde</h1>
+```
+
+```css
+h1 { color: red; }
+```
+
+```javascript
+console.log('Bonjour');
+```
+</details>
+
 ## Quiz interactif
 
 Intégrez un QCM interactif dans vos pages avec l'inclusion `quiz.html`.
