@@ -1,0 +1,1 @@
+Aucune modification de spec requise. Le requirement "Export vers CodePen" dans `openspec/specs/interactive-code-playground/spec.md` (lignes 39-45) est correctement défini. Le bug est purement dans l'implémentation JavaScript, pas dans le comportement spécifié.
