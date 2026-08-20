@@ -90,6 +90,7 @@ html.dark-mode {
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
+    text-wrap-style: pretty;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -705,6 +706,7 @@ html.dark-mode {
     display: none;
   }
 
+}
 
 
 

@@ -63,8 +63,8 @@ Créez un `_config.yml` avec la référence au thème et vos réglages :
 ```yaml
 remote_theme: simplonco/simplonline-ressources-jekyll-theme
 
-title: Titre de mon site
-description: Description de mon site
+title: "Titre de mon site"
+description: "Description de mon site"
 lang: fr
 
 show_toc: true
@@ -203,6 +203,7 @@ Les liens YouTube sont automatiquement convertis en lecteur vidéo intégré sur
 ```markdown
 [![Titre vidéo](https://img.youtube.com/vi/ID_VIDEO/0.jpg)](https://youtu.be/ID_VIDEO)
 ```
+[![Video title](https://img.youtube.com/vi/jNQXAC9IVRw/0.jpg)](https://youtu.be/jNQXAC9IVRw)
 
 Sur GitHub : affiche la vignette YouTube cliquable. Sur GitHub Pages : la vignette est remplacée par un lecteur iframe 16:9 avec YouTube en mode confidentialité renforcée (`youtube-nocookie.com`).
 
@@ -251,6 +252,33 @@ console.log('Bonjour');
 Les trois paramètres de code sont optionnels — passez seulement ce dont vous avez besoin.
 
 Le playground affiche trois onglets (HTML, CSS, JS), un éditeur CodeMirror avec colorisation syntaxique, et un aperçu en direct. L'aperçu se met à jour automatiquement à chaque changement (délai de 300ms). Un bouton "Open in CodePen" exporte le code. Sur mobile, l'aperçu se replie sous l'éditeur avec un bouton "View result".
+
+{% capture my_html %}
+<h1>Hello World</h1>
+{% endcapture %}
+
+{% capture my_css %}
+h1 { color: red; }
+{% endcapture %}
+
+{% capture my_js %}
+console.log('Hello');
+{% endcapture %}
+
+{% include playground.html
+  id="demo"
+  initial_html=my_html
+  initial_css=my_css
+  initial_js=my_js
+%}
+
+For a minimal playground with small initial code, you can use inline code instead of <code>&#123;% capture %}</code> blocks:
+
+<pre><code>&#123;% include playground.html
+  id="mini"
+  initial_html="&lt;h1&gt;Hello&lt;/h1&gt;"
+%}
+</code></pre>
 
 ## Quiz interactif
 

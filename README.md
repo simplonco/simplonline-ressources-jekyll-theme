@@ -63,8 +63,8 @@ Create a `_config.yml` with the theme reference and your settings:
 ```yaml
 remote_theme: simplonco/simplonline-ressources-jekyll-theme
 
-title: My Site Title
-description: My site description
+title: "My Site Title"
+description: "My site description"
 lang: en
 
 show_toc: true
