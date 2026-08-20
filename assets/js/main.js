@@ -623,20 +623,24 @@ const Playground = {
   handleCodePenClick(e, container, editors) {
     e.preventDefault();
     const form = DOMUtils.createElement('form', {
-      action: 'https://codepen.io/pen/define/',
-      method: 'POST',
-      target: '_blank'
+      attributes: {
+        action: 'https://codepen.io/pen/define/',
+        method: 'POST',
+        target: '_blank'
+      }
     });
 
     const input = DOMUtils.createElement('input', {
-      type: 'hidden',
-      name: 'data',
-      value: JSON.stringify({
-        title: 'JS Playground',
-        html: editors[0].getValue(),
-        css: editors[1].getValue(),
-        js: editors[2].getValue()
-      })
+      attributes: {
+        type: 'hidden',
+        name: 'data',
+        value: JSON.stringify({
+          title: 'JS Playground',
+          html: editors[0].getValue(),
+          css: editors[1].getValue(),
+          js: editors[2].getValue()
+        })
+      }
     });
 
     form.appendChild(input);
