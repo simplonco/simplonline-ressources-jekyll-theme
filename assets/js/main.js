@@ -700,8 +700,13 @@ const Playground = {
       consoleBtn.addEventListener('click', () => PlaygroundConsole.handleToggle(container));
     }
 
+    const panels = ['html', 'css', 'js'];
+    const activeTab = container.querySelector('.playground-tab.is-active');
+    let activeIdx = panels.indexOf(activeTab ? activeTab.getAttribute('data-panel') : 'html');
+    if (activeIdx < 0) activeIdx = 0;
+
     editors.forEach((cm, i) => {
-      cm.getWrapperElement().style.display = i === 0 ? '' : 'none';
+      cm.getWrapperElement().style.display = i === activeIdx ? '' : 'none';
     });
 
     Playground.updatePreview(container);

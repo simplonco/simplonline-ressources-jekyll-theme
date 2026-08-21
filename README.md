@@ -246,12 +246,25 @@ console.log('Hello');
 | `initial_html`| no       | Initial HTML code (via {% raw %}`{% capture %}`{% endraw %}) |
 | `initial_css` | no       | Initial CSS code |
 | `initial_js`  | no       | Initial JavaScript code |
+| `default_tab` | no       | Tab open on load: `html`, `css` or `js` (default: `html`) |
 
 All three code parameters can be omitted — pass only what you need.
 
 The playground renders with three tabs (HTML, CSS, JS), a CodeMirror editor with syntax highlighting, and a live preview panel. The preview updates automatically on every change (300ms debounce). A "Open in CodePen" button exports the code. On mobile, the preview collapses below the editor with a "View result" toggle.
 
 Console output from the executed code (`console.log`, `console.info`, `console.warn`, `console.error`, `console.debug`) is displayed in a "Console" drawer below the preview — click the Console button to expand it (a badge shows the message count). Uncaught JavaScript errors are also displayed there in red; no need to open the browser devtools.
+
+To start on a tab other than HTML:
+
+{% raw %}
+```
+{% include playground.html
+  id="demo-js"
+  initial_js=my_js
+  default_tab="js"
+%}
+```
+{% endraw %}
 
 {% capture my_html %}
 <h1>Hello World</h1>
