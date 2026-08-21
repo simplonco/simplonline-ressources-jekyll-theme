@@ -198,7 +198,7 @@ html.dark-mode .playground-iframe {
 }
 
 .playground-console-entry--info {
-  color: #E0E0E0;
+  color: #79C0FF;
 }
 
 .playground-console-entry--debug {
@@ -206,11 +206,12 @@ html.dark-mode .playground-iframe {
 }
 
 .playground-console-entry--warn {
-  color: #E3B341;
+  color: #F0C050;
 }
 
 .playground-console-entry--error {
-  color: var(--color-red);
+  color: #FF85AF;
+  font-weight: 600;
 }
 
 /* CodeMirror overrides */
