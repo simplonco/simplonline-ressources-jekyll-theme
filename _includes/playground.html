@@ -1,25 +1,29 @@
-{% if include.id %}
-<div class="playground" data-playground="{{ include.id }}">
-{% else %}
-<div class="playground" data-playground="playground-{% increment pg_counter %}">
-{% endif %}
+{% assign pg_default_tab = include.default_tab | default: 'html' | downcase %}
+{% unless pg_default_tab == 'html' or pg_default_tab == 'css' or pg_default_tab == 'js' %}
+  {% assign pg_default_tab = 'html' %}
+{% endunless %}
+<div class="playground"{% if include.id %} data-playground="{{ include.id }}"{% else %} data-playground="playground-{% increment pg_counter %}"{% endif %}>
   <div class="playground-tabs">
-    <button class="playground-tab is-active" data-panel="html">HTML</button>
-    <button class="playground-tab" data-panel="css">CSS</button>
-    <button class="playground-tab" data-panel="js">JS</button>
+    <button class="playground-tab{% if pg_default_tab == 'html' %} is-active{% endif %}" data-panel="html">HTML</button>
+    <button class="playground-tab{% if pg_default_tab == 'css' %} is-active{% endif %}" data-panel="css">CSS</button>
+    <button class="playground-tab{% if pg_default_tab == 'js' %} is-active{% endif %}" data-panel="js">JS</button>
+    <button type="button" class="playground-btn-console" aria-expanded="false">Console<span class="playground-console-badge" hidden></span></button>
     <button type="button" class="playground-btn-codepen">Open in CodePen</button>
   </div>
   <div class="playground-panes">
     <div class="playground-editor">
-      <textarea class="playground-textarea html" data-lang="html" rows="10" spellcheck="false">{{ include.initial_html | escape }}</textarea>
-      <textarea class="playground-textarea css" data-lang="css" rows="10" spellcheck="false" style="display:none">{{ include.initial_css | escape }}</textarea>
-      <textarea class="playground-textarea js" data-lang="js" rows="10" spellcheck="false" style="display:none">{{ include.initial_js | escape }}</textarea>
+      <textarea class="playground-textarea html" data-lang="html" rows="10" spellcheck="false"{% unless pg_default_tab == 'html' %} style="display:none"{% endunless %}>{{ include.initial_html | escape }}</textarea>
+      <textarea class="playground-textarea css" data-lang="css" rows="10" spellcheck="false"{% unless pg_default_tab == 'css' %} style="display:none"{% endunless %}>{{ include.initial_css | escape }}</textarea>
+      <textarea class="playground-textarea js" data-lang="js" rows="10" spellcheck="false"{% unless pg_default_tab == 'js' %} style="display:none"{% endunless %}>{{ include.initial_js | escape }}</textarea>
       <div class="playground-resizer" role="separator" aria-label="Resize editor and preview"></div>
     </div>
     <div class="playground-preview">
       <div class="playground-loading" aria-live="polite">Loading preview…</div>
       <iframe class="playground-iframe" sandbox="allow-scripts allow-modals" title="Live preview"></iframe>
     </div>
+  </div>
+  <div class="playground-console">
+    <div class="playground-console-entries"></div>
   </div>
   <button type="button" class="playground-toggle-preview" hidden>▲ Hide result</button>
 </div>

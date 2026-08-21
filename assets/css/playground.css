@@ -39,11 +39,45 @@
   border-bottom-color: var(--color-red);
 }
 
-.playground-btn-codepen {
+.playground-btn-console {
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
   margin-left: auto;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.playground-btn-console:hover,
+.playground-btn-console.is-open {
+  color: var(--color-red);
+}
+
+.playground-console-badge {
+  display: inline-block;
+  min-width: 1.1em;
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--color-red);
+  color: #fff;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.playground-console-badge[hidden] {
+  display: none;
+}
+
+.playground-btn-codepen {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
   padding: 0.5rem 1rem;
   border: none;
   background: none;
@@ -130,6 +164,53 @@
 
 html.dark-mode .playground-iframe {
   background: #fff;
+}
+
+/* Console drawer — fond sombre permanent, façon terminal */
+.playground-console {
+  display: none;
+  max-height: 220px;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-border);
+  background: #2E3E46;
+}
+
+.playground-console.is-open {
+  display: block;
+}
+
+.playground-console-entries {
+  padding: 0.25rem 0;
+}
+
+.playground-console-entry {
+  padding: 0.3rem 1rem;
+  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #E0E0E0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.playground-console-entry + .playground-console-entry {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.playground-console-entry--info {
+  color: #E0E0E0;
+}
+
+.playground-console-entry--debug {
+  color: #A0B0B8;
+}
+
+.playground-console-entry--warn {
+  color: #E3B341;
+}
+
+.playground-console-entry--error {
+  color: var(--color-red);
 }
 
 /* CodeMirror overrides */
@@ -238,6 +319,10 @@ html.dark-mode .CodeMirror-focused .CodeMirror-selected { background: rgba(228, 
 @media (max-width: 768px) {
   .playground-panes {
     grid-template-columns: 1fr;
+  }
+
+  .playground-console {
+    max-height: 160px;
   }
 
   .playground-editor {
