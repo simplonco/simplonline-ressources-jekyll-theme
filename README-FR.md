@@ -253,6 +253,8 @@ Les trois paramètres de code sont optionnels — passez seulement ce dont vous 
 
 Le playground affiche trois onglets (HTML, CSS, JS), un éditeur CodeMirror avec colorisation syntaxique, et un aperçu en direct. L'aperçu se met à jour automatiquement à chaque changement (délai de 300ms). Un bouton "Open in CodePen" exporte le code. Sur mobile, l'aperçu se replie sous l'éditeur avec un bouton "View result".
 
+Les sorties `console.log`, `console.info`, `console.warn`, `console.error` et `console.debug` du code exécuté s'affichent dans un tiroir « Console » sous l'aperçu — cliquez sur le bouton Console pour le déplier (un badge indique le nombre de messages). Les erreurs JavaScript non interceptées y sont également affichées en rouge ; inutile d'ouvrir la console du navigateur.
+
 {% capture my_html %}
 <h1>Hello World</h1>
 {% endcapture %}

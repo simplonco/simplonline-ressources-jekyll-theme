@@ -1,12 +1,9 @@
-{% if include.id %}
-<div class="playground" data-playground="{{ include.id }}">
-{% else %}
-<div class="playground" data-playground="playground-{% increment pg_counter %}">
-{% endif %}
+<div class="playground"{% if include.id %} data-playground="{{ include.id }}"{% else %} data-playground="playground-{% increment pg_counter %}"{% endif %}>
   <div class="playground-tabs">
     <button class="playground-tab is-active" data-panel="html">HTML</button>
     <button class="playground-tab" data-panel="css">CSS</button>
     <button class="playground-tab" data-panel="js">JS</button>
+    <button type="button" class="playground-btn-console" aria-expanded="false">Console<span class="playground-console-badge" hidden></span></button>
     <button type="button" class="playground-btn-codepen">Open in CodePen</button>
   </div>
   <div class="playground-panes">
@@ -20,6 +17,9 @@
       <div class="playground-loading" aria-live="polite">Loading preview…</div>
       <iframe class="playground-iframe" sandbox="allow-scripts allow-modals" title="Live preview"></iframe>
     </div>
+  </div>
+  <div class="playground-console">
+    <div class="playground-console-entries"></div>
   </div>
   <button type="button" class="playground-toggle-preview" hidden>▲ Hide result</button>
 </div>

@@ -413,6 +413,194 @@ const Quiz = {
 // GESTION DES PLAYGROUNDS
 // ============================================
 
+// Injecté tel quel dans l'iframe (via toString) : doit rester autonome
+function playgroundConsoleShim() {
+  var MAX_POSTS = 500;
+  var posts = 0;
+  var levels = ['log', 'info', 'warn', 'error', 'debug'];
+  var native = {};
+
+  levels.forEach(function (level) {
+    native[level] = console[level] ? console[level].bind(console) : function () {};
+  });
+
+  function formatValue(value, depth, seen) {
+    if (depth > 4) return '…';
+    if (value === null) return 'null';
+    if (value === undefined) return 'undefined';
+    var type = typeof value;
+    if (type === 'string') return value;
+    if (type === 'number' || type === 'boolean' || type === 'bigint') return String(value);
+    if (type === 'symbol') return value.toString();
+    if (type === 'function') {
+      return '\u0192 ' + (value.name || 'anonymous') + '()';
+    }
+    if (value instanceof Error) {
+      return value.stack ? String(value.stack).split('\n')[0] : value.name + ': ' + value.message;
+    }
+    if (typeof Node !== 'undefined' && value instanceof Node) {
+      if (value.nodeType === 1) {
+        var cls = typeof value.className === 'string' && value.className.trim()
+          ? '.' + value.className.trim().split(/\s+/).join('.') : '';
+        return '<' + value.tagName.toLowerCase() + (value.id ? '#' + value.id : '') + cls + '>';
+      }
+      return '#' + String(value.nodeName || value.nodeType);
+    }
+    if (seen.indexOf(value) !== -1) return '[Circular]';
+    seen = seen.concat([value]);
+    try {
+      if (Array.isArray(value)) {
+        var items = value.slice(0, 100).map(function (item) {
+          return formatValue(item, depth + 1, seen);
+        });
+        return '[' + items.join(', ') + (value.length > 100 ? ', …' : '') + ']';
+      }
+      if (value instanceof Date) return value.toISOString();
+      if (value instanceof RegExp) return String(value);
+      var keys = Object.keys(value);
+      var parts = keys.slice(0, 50).map(function (key) {
+        return key + ': ' + formatValue(value[key], depth + 1, seen);
+      });
+      var prefix = value.constructor && value.constructor.name && value.constructor.name !== 'Object'
+        ? value.constructor.name + ' ' : '';
+      return prefix + '{' + parts.join(', ') + (keys.length > 50 ? ', …' : '') + '}';
+    } catch (err) {
+      return '[unserializable]';
+    }
+  }
+
+  function formatArgs(args) {
+    return Array.prototype.map.call(args, function (arg) {
+      return formatValue(arg, 0, []);
+    }).join(' ');
+  }
+
+  function send(level, text) {
+    if (posts >= MAX_POSTS) return;
+    posts++;
+    try {
+      window.parent.postMessage({ source: 'playground-console', level: level, text: text }, '*');
+    } catch (err) {}
+    if (posts === MAX_POSTS) {
+      try {
+        window.parent.postMessage({
+          source: 'playground-console',
+          level: 'warn',
+          text: 'Console output truncated (' + MAX_POSTS + ' messages max)'
+        }, '*');
+      } catch (err) {}
+    }
+  }
+
+  levels.forEach(function (level) {
+    console[level] = function () {
+      native[level].apply(console, arguments);
+      send(level, formatArgs(arguments));
+    };
+  });
+
+  window.onerror = function (message, source, lineno, colno, error) {
+    var text = error && error.stack
+      ? String(error.stack).split('\n')[0]
+      : 'Uncaught ' + message;
+    if (lineno) text += ' (line ' + lineno + ')';
+    send('error', text);
+  };
+
+  window.addEventListener('unhandledrejection', function (event) {
+    var reason = event.reason;
+    var head = reason instanceof Error && reason.stack ? String(reason.stack).split('\n')[0] : formatValue(reason, 0, []);
+    send('error', 'Uncaught (in promise) ' + head);
+  });
+}
+
+const PlaygroundConsole = {
+  MAX_ENTRIES: 200,
+  _listenerReady: false,
+
+  ensureListener() {
+    if (PlaygroundConsole._listenerReady) return;
+    PlaygroundConsole._listenerReady = true;
+
+    window.addEventListener('message', (event) => {
+      const data = event.data;
+      if (!data || data.source !== 'playground-console') return;
+
+      const container = PlaygroundConsole._containerForSource(event.source);
+      if (!container) return;
+
+      PlaygroundConsole.append(container, data.level, String(data.text));
+    });
+  },
+
+  _containerForSource(source) {
+    for (const container of document.querySelectorAll('.playground')) {
+      const iframe = container.querySelector('.playground-iframe');
+      if (iframe && iframe.contentWindow === source) return container;
+    }
+    return null;
+  },
+
+  clear(container) {
+    container._consoleCount = 0;
+    const entries = container.querySelector('.playground-console-entries');
+    if (entries) entries.textContent = '';
+    PlaygroundConsole._updateBadge(container);
+  },
+
+  append(container, level, text) {
+    const entries = container.querySelector('.playground-console-entries');
+    if (!entries) return;
+
+    const nearBottom = entries.scrollHeight - entries.scrollTop - entries.clientHeight < 30;
+
+    const entry = document.createElement('div');
+    entry.className = `playground-console-entry playground-console-entry--${level}`;
+    entry.textContent = text;
+    entries.appendChild(entry);
+
+    while (entries.children.length > PlaygroundConsole.MAX_ENTRIES) {
+      entries.removeChild(entries.firstChild);
+    }
+
+    container._consoleCount = Math.min((container._consoleCount || 0) + 1, PlaygroundConsole.MAX_ENTRIES);
+
+    if (nearBottom) entries.scrollTop = entries.scrollHeight;
+    PlaygroundConsole._updateBadge(container);
+  },
+
+  handleToggle(container) {
+    const drawer = container.querySelector('.playground-console');
+    const btn = container.querySelector('.playground-btn-console');
+    if (!drawer || !btn) return;
+
+    const open = drawer.classList.toggle('is-open');
+    btn.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    if (open) {
+      const entries = container.querySelector('.playground-console-entries');
+      if (entries) entries.scrollTop = entries.scrollHeight;
+    }
+    PlaygroundConsole._updateBadge(container);
+  },
+
+  _updateBadge(container) {
+    const badge = container.querySelector('.playground-console-badge');
+    if (!badge) return;
+
+    const drawerOpen = container.querySelector('.playground-console').classList.contains('is-open');
+    const count = container._consoleCount || 0;
+
+    if (!drawerOpen && count > 0) {
+      badge.hidden = false;
+      badge.textContent = count > PlaygroundConsole.MAX_ENTRIES ? `${PlaygroundConsole.MAX_ENTRIES}+` : count;
+    } else {
+      badge.hidden = true;
+    }
+  }
+};
+
 const Playground = {
   initAll() {
     const playgrounds = document.querySelectorAll('.playground');
@@ -441,6 +629,8 @@ const Playground = {
 
   _initPlaygrounds(playgrounds) {
     if (!playgrounds.length || typeof CodeMirror === 'undefined') return;
+
+    PlaygroundConsole.ensureListener();
 
     playgrounds.forEach(Playground.initPlayground);
 
@@ -505,6 +695,11 @@ const Playground = {
       toggle.addEventListener('click', () => Playground.handlePreviewToggle(toggle, preview));
     }
 
+    const consoleBtn = container.querySelector('.playground-btn-console');
+    if (consoleBtn) {
+      consoleBtn.addEventListener('click', () => PlaygroundConsole.handleToggle(container));
+    }
+
     editors.forEach((cm, i) => {
       cm.getWrapperElement().style.display = i === 0 ? '' : 'none';
     });
@@ -519,7 +714,11 @@ const Playground = {
     const css = container.CodeMirrorEditors[1].getValue();
     const js = container.CodeMirrorEditors[2].getValue();
     const iframe = container.querySelector('.playground-iframe');
-    const srcdoc = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`;
+
+    PlaygroundConsole.clear(container);
+
+    const shim = `<script>(${playgroundConsoleShim.toString()})();<\/script>`;
+    const srcdoc = `<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}${shim}<script>${js}<\/script></body></html>`;
     iframe.srcdoc = srcdoc;
   },
 
