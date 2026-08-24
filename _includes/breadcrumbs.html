@@ -1,3 +1,21 @@
+{% comment %}Only show breadcrumb when there's more than one item{% endcomment %}
+{% assign show_breadcrumb = false %}
+{% if page.url != '/' %}
+  {% assign show_breadcrumb = true %}
+{% else %}
+  {% assign current = page %}
+  {% for i in (1..10) %}
+    {% if current.parent %}
+      {% assign parent_pages = site.pages | where: "title", current.parent %}
+      {% if parent_pages.size > 0 %}
+        {% assign show_breadcrumb = true %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if show_breadcrumb %}
 <nav class="breadcrumbs" aria-label="Breadcrumb">
   <div class="wrapper">
     <ol class="breadcrumbs-list">
@@ -35,3 +53,4 @@
     </ol>
   </div>
 </nav>
+{% endif %}
