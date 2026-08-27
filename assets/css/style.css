@@ -609,6 +609,36 @@ html.dark-mode {
     color: var(--color-syntax-punctuation);
   }
 
+  .highlight .gd {
+    color: #D73A49;
+    background: rgba(215, 58, 73, 0.1);
+  }
+
+  .highlight .gi {
+    color: #22863a;
+    background: rgba(34, 134, 58, 0.1);
+  }
+
+  .highlight .gh {
+    color: var(--color-syntax-entity);
+    font-weight: 600;
+  }
+
+  .highlight .gu {
+    color: var(--color-syntax-comment);
+    font-weight: 600;
+  }
+
+  html.dark-mode .highlight .gd {
+    color: #FF7B72;
+    background: rgba(255, 123, 114, 0.1);
+  }
+
+  html.dark-mode .highlight .gi {
+    color: #7EE787;
+    background: rgba(126, 231, 135, 0.1);
+  }
+
   .stepper {
     margin-bottom: var(--spacing-lg);
   }

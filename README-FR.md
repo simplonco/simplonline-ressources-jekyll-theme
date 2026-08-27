@@ -194,6 +194,22 @@ let age = 25;
 }
 ```
 
+### Blocs diff
+
+Les blocs de code avec le language `diff` affichent des ajouts et suppressions en couleur :
+
+```markdown
+​```diff
+- const ancien = "supprimé";
++ const misAJour = "ajouté";
+​```
+```
+
+```diff
+- const ancien = "supprimé";
++ const misAJour = "ajouté";
+```
+
 ## Vidéos YouTube
 
 Les liens YouTube sont automatiquement convertis en lecteur vidéo intégré sur GitHub Pages.

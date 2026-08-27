@@ -197,6 +197,22 @@ will render as:
 }
 ```
 
+### Diff blocks
+
+Fenced code blocks with the `diff` language get color-coded additions and deletions:
+
+```markdown
+​```diff
+- const old = "removed";
++ const updated = "added";
+​```
+```
+
+```diff
+- const old = "removed";
++ const updated = "added";
+```
+
 ## YouTube embeds
 
 YouTube links are automatically converted to embedded video players on GitHub Pages.
