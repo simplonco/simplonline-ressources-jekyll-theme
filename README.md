@@ -310,6 +310,48 @@ For a minimal playground with small initial code, you can use inline code instea
 %}
 </code></pre>
 
+## SQL Playground
+
+Embed a dedicated SQL editor with execution using the `sql-playground.html` include. Queries run entirely in the browser via sql.js (SQLite compiled to WebAssembly) — no server required.
+
+{% raw %}
+```liquid
+{% capture db_schema %}
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  age INTEGER
+);
+
+INSERT INTO users VALUES
+  (1, 'Alice', 30),
+  (2, 'Bob', 22);
+{% endcapture %}
+
+{% capture initial_query %}
+SELECT * FROM users;
+{% endcapture %}
+
+{% include sql-playground.html
+  id="intro-sql"
+  schema=db_schema
+  query=initial_query
+%}
+```
+{% endraw %}
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `id`      | no       | Unique identifier (auto-generated if omitted) |
+| `schema`  | no       | SQL statements to create the database (via {% raw %}`{% capture %}`{% endraw %}) |
+| `query`   | no       | Initial SQL query shown in the editor |
+
+The SQL playground renders a CodeMirror editor with SQL syntax highlighting, an "Execute" button, and a results table. The database is created fresh on each execution (schema + query). Error messages are displayed in a red block.
+
+sql.js is lazy-loaded only when a `sql-playground` is present on the page (~700 KB WASM).
+
+For a live example, see the [SQL demo](./demo/sql-demo/).
+
 ## Solution within content
 
 If you want to include a solution in your content (e.g., for exercises, playground solutions, etc.), you can use the html `<details markdown="1">` element to create a collapsible section. This allows learners to reveal the solution only when they choose to. The attribute `markdown="1"` enables Markdown rendering inside the `<details>` and `<summary>` tags.
@@ -535,4 +577,5 @@ This is the next line.
 
 ## Demo
 
-[View demo](./demo/)
+- [Interactive playground demo](./demo/)
+- [SQL playground demo](./demo/sql-demo/)

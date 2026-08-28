@@ -1,0 +1,22 @@
+{% assign sql_pg_id = include.id | default: 'sql-pg' %}
+{% assign sql_pg_schema = include.schema | default: '' %}
+{% assign sql_pg_query = include.query | default: '' %}
+<div class="sql-playground" data-sql-playground="{{ sql_pg_id }}">
+  <div class="sql-playground-header">
+    <span class="sql-playground-badge">SQL</span>
+    <div class="sql-playground-actions">
+      <button type="button" class="sql-playground-run" aria-label="Exécuter la requête">&#9654; Exécuter</button>
+      <button type="button" class="sql-playground-reset" aria-label="Réinitialiser la requête">&#8634; Réinitialiser</button>
+    </div>
+  </div>
+  <div class="sql-playground-editor">
+    <textarea class="sql-playground-textarea"
+      data-schema="{{ sql_pg_schema | escape }}"
+      data-initial-query="{{ sql_pg_query | escape }}"
+      rows="10"
+      spellcheck="false"
+      aria-label="Éditeur SQL">{{ sql_pg_query | escape }}</textarea>
+  </div>
+  <div class="sql-playground-status" aria-live="polite"></div>
+  <div class="sql-playground-results" aria-live="polite"></div>
+</div>

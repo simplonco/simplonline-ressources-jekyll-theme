@@ -934,6 +934,236 @@ const Stepper = {
 
 
 // ============================================
+// PLAYGROUND SQL (sql.js + CodeMirror)
+// ============================================
+
+const SqlPlayground = {
+  _sqlReady: null,
+  _cmInstances: new Map(),
+
+  _loadSqlJs() {
+    if (this._sqlReady) return this._sqlReady;
+    this._sqlReady = new Promise(async (resolve, reject) => {
+      try {
+        if (typeof initSqlJs === 'undefined') {
+          const script = document.createElement('script');
+          script.src = document.currentScript
+            ? document.currentScript.src.replace(/main\.js.*$/, 'sql-wasm/sql-wasm.js')
+            : (function () {
+                const scripts = document.querySelectorAll('script[src*="main.js"]');
+                const src = scripts.length ? scripts[scripts.length - 1].src : '';
+                return src.replace(/main\.js.*$/, 'sql-wasm/sql-wasm.js');
+              })();
+          script.onload = () => this._doInit(resolve, reject);
+          script.onerror = () => reject(new Error('Failed to load sql.js'));
+          document.head.appendChild(script);
+        } else {
+          this._doInit(resolve, reject);
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+    return this._sqlReady;
+  },
+
+  _doInit(resolve, reject) {
+    try {
+      const wasmPath = (function () {
+        const scripts = document.querySelectorAll('script[src*="main.js"]');
+        const src = scripts.length ? scripts[scripts.length - 1].src : '';
+        return src.replace(/main\.js.*$/, 'sql-wasm/sql-wasm.wasm');
+      })();
+      initSqlJs({ locateFile: (file) => wasmPath.replace('sql-wasm.wasm', file) })
+        .then(resolve)
+        .catch(reject);
+    } catch (e) {
+      reject(e);
+    }
+  },
+
+  _escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
+  },
+
+  _formatCell(value) {
+    if (value === null || value === undefined) return '<span class="sql-null">NULL</span>';
+    return this._escapeHtml(value);
+  },
+
+  _renderResults(container, results) {
+    if (!results || !results.values || results.values.length === 0) {
+      container.innerHTML = '<div class="sql-empty">Aucun résultat</div>';
+      return;
+    }
+
+    const columns = results.columns;
+    const rows = results.values;
+
+    let html = '<table><thead><tr>';
+    for (const col of columns) {
+      html += '<th>' + this._escapeHtml(col) + '</th>';
+    }
+    html += '</tr></thead><tbody>';
+    for (const row of rows) {
+      html += '<tr>';
+      for (const cell of row) {
+        html += '<td>' + this._formatCell(cell) + '</td>';
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  },
+
+  _renderInfo(container, message) {
+    container.innerHTML = '<div class="sql-info">' + this._escapeHtml(message) + '</div>';
+  },
+
+  _renderError(container, message) {
+    container.innerHTML = '<div class="sql-playground-error">' + this._escapeHtml(message) + '</div>';
+  },
+
+  _renderStatus(statusEl, text, isLoading) {
+    if (text) {
+      statusEl.textContent = text;
+      statusEl.className = 'sql-playground-status' + (isLoading ? ' is-loading' : '');
+    } else {
+      statusEl.textContent = '';
+      statusEl.className = 'sql-playground-status';
+    }
+  },
+
+  async _execute(pgEl) {
+    const runBtn = pgEl.querySelector('.sql-playground-run');
+    const statusEl = pgEl.querySelector('.sql-playground-status');
+    const resultsEl = pgEl.querySelector('.sql-playground-results');
+    const textarea = pgEl.querySelector('.sql-playground-textarea');
+
+    const schema = textarea.dataset.schema || '';
+    const cm = this._cmInstances.get(pgEl);
+    const query = cm ? cm.getValue().trim() : textarea.value.trim();
+
+    if (!schema && !query) {
+      this._renderError(resultsEl, 'Aucune requête à exécuter');
+      return;
+    }
+
+    runBtn.disabled = true;
+    const originalText = runBtn.textContent;
+    runBtn.textContent = '⏳ Chargement…';
+    this._renderStatus(statusEl, 'Chargement de sql.js…', true);
+    resultsEl.innerHTML = '';
+
+    try {
+      await this._loadSqlJs();
+    } catch (e) {
+      this._renderError(resultsEl, 'Erreur de chargement de sql.js : ' + e.message);
+      runBtn.disabled = false;
+      runBtn.textContent = originalText;
+      this._renderStatus(statusEl, '', false);
+      return;
+    }
+
+    runBtn.textContent = '⏳ Exécution…';
+    this._renderStatus(statusEl, 'Exécution…', true);
+
+    try {
+      const SQL = await this._sqlReady;
+      const db = new SQL.Database();
+
+      // Execute schema
+      if (schema) {
+        try {
+          db.run(schema);
+        } catch (e) {
+          this._renderError(resultsEl, 'Erreur dans le schéma : ' + e.message);
+          db.close();
+          runBtn.disabled = false;
+          runBtn.textContent = originalText;
+          this._renderStatus(statusEl, '', false);
+          return;
+        }
+      }
+
+      // Execute query
+      if (query) {
+        try {
+          const results = db.exec(query);
+          if (results.length > 0) {
+            this._renderResults(resultsEl, results[0]);
+          } else {
+            // Non-SELECT query
+            const changes = db.getRowsModified();
+            this._renderInfo(resultsEl, changes + ' ligne(s) affectée(s)');
+          }
+        } catch (e) {
+          this._renderError(resultsEl, 'Erreur SQL : ' + e.message);
+        }
+      } else {
+        this._renderInfo(resultsEl, 'Schéma chargé. Entrez une requête pour voir les résultats.');
+      }
+
+      db.close();
+    } catch (e) {
+      this._renderError(resultsEl, 'Erreur inattendue : ' + e.message);
+    }
+
+    runBtn.disabled = false;
+    runBtn.textContent = originalText;
+    this._renderStatus(statusEl, '', false);
+  },
+
+  _initInstance(pgEl) {
+    const textarea = pgEl.querySelector('.sql-playground-textarea');
+    const runBtn = pgEl.querySelector('.sql-playground-run');
+    const resetBtn = pgEl.querySelector('.sql-playground-reset');
+    const initialQuery = textarea.dataset.initialQuery || '';
+
+    // Initialize CodeMirror if available
+    if (typeof CodeMirror !== 'undefined') {
+      const cm = CodeMirror.fromTextArea(textarea, {
+        mode: 'text/x-sql',
+        lineNumbers: true,
+        lineWrapping: true,
+        matchBrackets: true,
+        indentWithTabs: false,
+        tabSize: 2,
+        viewportMargin: Infinity
+      });
+      this._cmInstances.set(pgEl, cm);
+    }
+
+    runBtn.addEventListener('click', () => this._execute(pgEl));
+
+    resetBtn.addEventListener('click', () => {
+      if (typeof CodeMirror !== 'undefined') {
+        const cm = this._cmInstances.get(pgEl);
+        if (cm) {
+          cm.setValue(initialQuery);
+        }
+      } else {
+        textarea.value = initialQuery;
+      }
+      const resultsEl = pgEl.querySelector('.sql-playground-results');
+      resultsEl.innerHTML = '';
+      this._renderStatus(pgEl.querySelector('.sql-playground-status'), '', false);
+    });
+  },
+
+  initAll() {
+    const playgrounds = DOMUtils.querySelectorAll(document, '.sql-playground');
+    for (const pg of playgrounds) {
+      this._initInstance(pg);
+    }
+  }
+};
+
+
+// ============================================
 // INITIALISATION
 // ============================================
 
@@ -956,5 +1186,8 @@ function initializeAll() {
 
   // Playground dépend de CodeMirror, donc on l'initialise séparément
   Playground.initAll();
+
+  // SQL Playground (lazy-loads sql.js uniquement si présent)
+  SqlPlayground.initAll();
 }
 
