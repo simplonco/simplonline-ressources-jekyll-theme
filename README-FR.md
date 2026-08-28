@@ -311,6 +311,48 @@ For a minimal playground with small initial code, you can use inline code instea
 %}
 </code></pre>
 
+## Playground SQL
+
+Intégrez un éditeur SQL dédié avec exécution grâce à l'inclusion `sql-playground.html`. Les requêtes s'exécutent entièrement dans le navigateur via sql.js (SQLite compilé en WebAssembly) — aucun serveur nécessaire.
+
+{% raw %}
+```liquid
+{% capture db_schema %}
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  age INTEGER
+);
+
+INSERT INTO users VALUES
+  (1, 'Alice', 30),
+  (2, 'Bob', 22);
+{% endcapture %}
+
+{% capture requete_initiale %}
+SELECT * FROM users;
+{% endcapture %}
+
+{% include sql-playground.html
+  id="intro-sql"
+  schema=db_schema
+  query=requete_initiale
+%}
+```
+{% endraw %}
+
+| Paramètre | Requis | Description |
+|-----------|--------|-------------|
+| `id`      | non    | Identifiant unique (auto-généré si omis) |
+| `schema`  | non    | Instructions SQL pour créer la base (via {% raw %}`{% capture %}`{% endraw %}) |
+| `query`   | non    | Requête SQL initiale affichée dans l'éditeur |
+
+Le playground SQL affiche un éditeur CodeMirror avec colorisation syntaxique SQL, un bouton « Exécuter », et un tableau de résultats. La base est recréée à chaque exécution (schema + query). Les messages d'erreur s'affichent dans un bloc rouge.
+
+sql.js est chargé uniquement si un `sql-playground` est présent sur la page (~700 KB de WASM).
+
+Pour un exemple en direct, voir la [démo SQL](./demo/sql-demo/).
+
 ## Solution intégrée au contenu
 
 Si vous souhaitez inclure une solution dans votre contenu (par exemple pour des exercices, des solutions de playground, etc.), vous pouvez utiliser l'élément HTML `<details markdown="1">` pour créer une section rétractable. Cela permet à l'apprenant de révéler la solution uniquement quand il le souhaite. L'attribut `markdown="1"` active le rendu Markdown à l'intérieur des balises `<details>` et `<summary>`.
@@ -537,4 +579,5 @@ Voici la ligne suivante.
 
 ## Démo
 
-[Voir la démo](./demo/)
+- [Démo playground interactif](./demo/)
+- [Démo playground SQL](./demo/sql-demo/)
