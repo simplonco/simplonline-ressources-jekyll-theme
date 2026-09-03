@@ -1037,6 +1037,28 @@ const SqlPlayground = {
     }
   },
 
+  // Classify a query by its leading keyword (after stripping comments),
+  // because db.exec() returns [] both for SELECT-with-0-rows and non-SELECT.
+  _getStatementType(sql) {
+    let s = sql.trim();
+    let changed = true;
+    while (changed) {
+      changed = false;
+      if (s.startsWith('--')) {
+        const nl = s.indexOf('\n');
+        s = nl === -1 ? '' : s.slice(nl + 1).trim();
+        changed = true;
+      } else if (s.startsWith('/*')) {
+        const end = s.indexOf('*/');
+        s = end === -1 ? '' : s.slice(end + 2).trim();
+        changed = true;
+      }
+    }
+    if (/^(select|with|values|pragma|explain)\b/i.test(s) || s.startsWith('(')) return 'row';
+    if (/^(insert|update|delete|replace)\b/i.test(s)) return 'modify';
+    return 'other';
+  },
+
   async _execute(pgEl) {
     const runBtn = pgEl.querySelector('.sql-playground-run');
     const statusEl = pgEl.querySelector('.sql-playground-status');
@@ -1093,12 +1115,18 @@ const SqlPlayground = {
       if (query) {
         try {
           const results = db.exec(query);
+          const type = this._getStatementType(query);
           if (results.length > 0) {
             this._renderResults(resultsEl, results[0]);
-          } else {
-            // Non-SELECT query
+          } else if (type === 'row') {
+            // SELECT matching no rows: exec() returns [] -> show empty state
+            this._renderResults(resultsEl, { columns: [], values: [] });
+          } else if (type === 'modify') {
             const changes = db.getRowsModified();
             this._renderInfo(resultsEl, changes + ' ligne(s) affectée(s)');
+          } else {
+            // DDL: getRowsModified() is stale (from schema), show confirmation
+            this._renderInfo(resultsEl, 'Requête exécutée.');
           }
         } catch (e) {
           this._renderError(resultsEl, 'Erreur SQL : ' + e.message);
