@@ -72,7 +72,6 @@ Modifie la requête ci-dessous pour :
 3. Sélectionner tous les produits coûtant plus de 100
 
 {% capture query_1 %}
-
 {% endcapture %}
 
 {% include sql-playground.html
@@ -81,64 +80,8 @@ Modifie la requête ci-dessous pour :
   query=query_1
 %}
 
-## Exercice 2 : Jointures
-
-Écris une requête pour afficher le nom de chaque utilisateur et le produit qu'il a commandé.
-
-{% capture query_2 %}
-SELECT users.name, orders.product, orders.amount
-FROM users
-JOIN orders ON users.id = orders.user_id;
-{% endcapture %}
-
-{% include sql-playground.html
-  id="exercice-2"
-  schema=db_schema
-  query=query_2
-%}
-
-## Exercice 3 : Agrégations
-
-Utilise les fonctions d'agrégation pour :
-
-1. Calculer le nombre total d'utilisateurs
-2. Calculer le montant total des commandes par utilisateur
-3. Trouver le produit le plus cher
-
-{% capture query_3 %}
-SELECT COUNT(*) as total_users FROM users;
-{% endcapture %}
-
-{% include sql-playground.html
-  id="exercice-3"
-  schema=db_schema
-  query=query_3
-%}
-
-## Exercice 4 : Conditions et tri
-
-Écris des requêtes pour :
-
-1. Trouver les utilisateurs dont le nom commence par 'A' ou 'B'
-2. Afficher les commandes triées par montant décroissant
-3. Trouver les utilisateurs qui ont passé plus de 2 commandes
-
-{% capture query_4 %}
-SELECT * FROM users WHERE name LIKE 'A%' OR name LIKE 'B%';
-{% endcapture %}
-
-{% include sql-playground.html
-  id="exercice-4"
-  schema=db_schema
-  query=query_4
-%}
-
-## Solution du challenge
-
 <details markdown="1">
-<summary>Afficher les solutions (cliquer pour ouvrir)</summary>
-
-### Exercice 1
+<summary>Solution</summary>
 
 ```sql
 -- Utilisateurs de plus de 25 ans
@@ -150,8 +93,23 @@ SELECT name, email FROM users;
 -- Produits plus de 100
 SELECT * FROM orders WHERE amount > 100;
 ```
+</details>
 
-### Exercice 2
+## Exercice 2 : Jointures
+
+Écris une requête pour afficher le nom de chaque utilisateur et le produit qu'il a commandé.
+
+{% capture query_2 %}
+{% endcapture %}
+
+{% include sql-playground.html
+  id="exercice-2"
+  schema=db_schema
+  query=query_2
+%}
+
+<details markdown="1">
+<summary>Solution</summary>
 
 ```sql
 -- Jointure users-orders
@@ -159,8 +117,27 @@ SELECT users.name, orders.product, orders.amount
 FROM users
 JOIN orders ON users.id = orders.user_id;
 ```
+</details>
 
-### Exercice 3
+## Exercice 3 : Agrégations
+
+Utilise les fonctions d'agrégation pour :
+
+1. Calculer le nombre total d'utilisateurs
+2. Calculer le montant total des commandes par utilisateur
+3. Trouver le produit le plus cher
+
+{% capture query_3 %}
+{% endcapture %}
+
+{% include sql-playground.html
+  id="exercice-3"
+  schema=db_schema
+  query=query_3
+%}
+
+<details markdown="1">
+<summary>Solution</summary>
 
 ```sql
 -- Nombre total d'utilisateurs
@@ -175,8 +152,27 @@ GROUP BY users.id;
 -- Produit le plus cher
 SELECT product, MAX(amount) as max_price FROM orders;
 ```
+</details>
 
-### Exercice 4
+## Exercice 4 : Conditions et tri
+
+Écris des requêtes pour :
+
+1. Trouver les utilisateurs dont le nom commence par 'A' ou 'B'
+2. Afficher les commandes triées par montant décroissant
+3. Trouver les utilisateurs qui ont passé 2 commandes minimum
+
+{% capture query_4 %}
+{% endcapture %}
+
+{% include sql-playground.html
+  id="exercice-4"
+  schema=db_schema
+  query=query_4
+%}
+
+<details markdown="1">
+<summary>Solution</summary>
 
 ```sql
 -- Utilisateurs A ou B
@@ -190,9 +186,8 @@ SELECT users.name, COUNT(orders.id) as order_count
 FROM users
 JOIN orders ON users.id = orders.user_id
 GROUP BY users.id
-HAVING order_count > 2;
+HAVING order_count >= 2;
 ```
-
 </details>
 
 ## 👉 Version markdown de cette démo
