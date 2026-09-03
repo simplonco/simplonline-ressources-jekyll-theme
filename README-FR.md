@@ -351,7 +351,7 @@ Le playground SQL affiche un éditeur CodeMirror avec colorisation syntaxique SQ
 
 sql.js est chargé uniquement si un `sql-playground` est présent sur la page (~700 KB de WASM).
 
-Pour un exemple en direct, voir la [démo SQL](./demo/sql-demo/).
+Pour un exemple en direct, voir la [démo SQL](./demo/sql-demo).
 
 ## Solution intégrée au contenu
 
@@ -580,4 +580,4 @@ Voici la ligne suivante.
 ## Démo
 
 - [Démo playground interactif](./demo/)
-- [Démo playground SQL](./demo/sql-demo/)
+- [Démo playground SQL](./demo/sql-demo)

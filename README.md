@@ -350,7 +350,7 @@ The SQL playground renders a CodeMirror editor with SQL syntax highlighting, an 
 
 sql.js is lazy-loaded only when a `sql-playground` is present on the page (~700 KB WASM).
 
-For a live example, see the [SQL demo](./demo/sql-demo/).
+For a live example, see the [SQL demo](./demo/sql-demo).
 
 ## Solution within content
 
@@ -578,4 +578,4 @@ This is the next line.
 ## Demo
 
 - [Interactive playground demo](./demo/)
-- [SQL playground demo](./demo/sql-demo/)
+- [SQL playground demo](./demo/sql-demo)

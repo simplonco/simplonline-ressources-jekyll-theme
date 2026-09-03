@@ -11,7 +11,24 @@ Ce playground SQL te permet d'exécuter des requêtes SQL directement dans ta na
 
 ## Base de données
 
-Nous utilisons une base de données contenant des utilisateurs et leurs commandes :
+Nous utilisons une base de données contenant des utilisateurs et leurs commandes. La structure de la base est la suivante :
+
+```sql
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  age INTEGER,
+  email TEXT
+);
+
+CREATE TABLE orders (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER,
+  product TEXT NOT NULL,
+  amount REAL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
 
 {% capture db_schema %}
 CREATE TABLE users (
